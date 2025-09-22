@@ -1,0 +1,65 @@
+package com.javaweb.repository.impl.RepositoryImpl;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import org.springframework.stereotype.Repository;
+
+import com.javaweb.entity.Course.CourseEntity;
+import com.javaweb.repository.impl.CourseRepositoryCustom.CourseRepositoryCustom;
+
+
+@Repository
+public class CourseRepositoryImpl implements CourseRepositoryCustom {
+	@PersistenceContext
+	private EntityManager entityManager;
+	
+	//Lấy tất cả các khóa học
+	@Override
+	public List<Map<String, Object>> getAllCourse() {
+	    String sql = "select CourseID, Title, Category, Level, Price, Status from courses where 1=1";
+	    Query qr = entityManager.createNativeQuery(sql);
+
+	    List<Object[]> results = qr.getResultList();
+	    List<Map<String, Object>> mappedResults = new ArrayList<>();
+
+	    List<String> columns = List.of("CourseID", "Title", "Category", "Level", "Price", "Status");
+
+	    for (Object[] row : results) {
+	        Map<String, Object> map = new HashMap<>();
+	        for (int i = 0; i < columns.size(); i++) {
+	            map.put(columns.get(i), row[i]);
+	        }
+	        mappedResults.add(map);
+	    }
+
+	    return mappedResults;
+	}
+	
+	//Lấy khóa học cho xem trước
+	@SuppressWarnings("deprecation")
+	@Override
+	public Map<String, Object> getCoursePreview(Long courseId) {
+	    String str = "SELECT CourseID, Title, Description, Level, Category, Language, Duration, " +
+	                 "Capacity, Price, DiscountPrice, Requirements, Objectives, CreatedAt, " +
+	                 "UpdatedAt, Syllabus, ImageUrl, VideoUrl " +
+	                 "FROM courses WHERE CourseID = :courseId";
+	                 
+	    Query qr = entityManager.createNativeQuery(str);
+	    qr.setParameter("courseId", courseId);
+	    
+	    //Dùng để chuyển sang map 
+	    qr.unwrap(org.hibernate.query.NativeQuery.class)
+	      .setResultTransformer(org.hibernate.transform.AliasToEntityMapResultTransformer.INSTANCE);
+	    
+	    @SuppressWarnings("unchecked")
+		Map<String, Object> result = (Map<String, Object>) qr.getSingleResult();
+	    return result;
+	}
+}
