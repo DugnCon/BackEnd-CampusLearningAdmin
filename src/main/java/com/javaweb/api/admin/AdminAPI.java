@@ -3,6 +3,7 @@ package com.javaweb.api.admin;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +30,7 @@ public class AdminAPI {
 	private JwtService jwtService;
 	//Kiểm tra role và tạo jwt
 	@PostMapping("/auth/login")
-	public ResponseEntity<Object> adminLogin(@RequestBody AdminDTO adminDTO) {
+	public ResponseEntity<Object> adminLogin(@Valid @RequestBody AdminDTO adminDTO) {
 		return adminServiceLogin.AdminLogin(adminDTO);
 	}
 	//Chỉ cần check sign của jwt mà không cần query

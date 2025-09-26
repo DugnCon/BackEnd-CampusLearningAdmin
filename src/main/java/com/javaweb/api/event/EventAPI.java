@@ -1,15 +1,119 @@
 package com.javaweb.api.event;
 
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.javaweb.model.dto.EventDTO;
+import com.javaweb.model.dto.EventLanguagesDTO;
+import com.javaweb.model.dto.EventPrizesDTO;
+import com.javaweb.model.dto.EventScheduleDTO;
+import com.javaweb.model.dto.EventTechnologiesDTO;
+import com.javaweb.service.IEventService;
 
 @RestController
 @RequestMapping("/api")
 public class EventAPI {
+	@Autowired
+	private IEventService eventService;
+	//Lấy tất cả event
 	@GetMapping("/events")
 	public ResponseEntity<Object> getAllEvents() {
+		return eventService.getAllEvent();
+	}
+	
+	//Xem trước event
+	@GetMapping("/events/{eventId}")
+	public ResponseEntity<Object> getPreviewEvent(@PathVariable Long eventId) {
+		return eventService.getEventPreview(eventId);
+	}
+	
+	@GetMapping("/events/{eventId}/technologies")
+	public ResponseEntity<Object> getPreviewTechnologies() {
 		return null;
+	}
+	
+	@GetMapping("/events/{eventId}/languages")
+	public ResponseEntity<Object> getPreviewLanguages() {
+		return null;
+	}
+	
+	@GetMapping("/events/{eventId}/schedule")
+	public ResponseEntity<Object> getPreviewSchedule() {
+		return null;
+	}
+	
+	@GetMapping("/events/{eventId}/participants")
+	public ResponseEntity<Object> getPreviewParticipants() {
+		return null;
+	}
+	
+	@GetMapping("/events/{eventId}/prizes")
+	public ResponseEntity<Object> getPreviewPrizes() {
+		return null;
+	}
+	
+	//Edit Event
+	@PutMapping("/events/{eventId}")
+	public ResponseEntity<Object> updateEvent(@PathVariable Long eventId, @RequestBody EventDTO eventDTO) {
+		if(eventDTO == null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", HttpStatus.BAD_REQUEST.value()));
+		}
+		return eventService.updateEvent(eventId, eventDTO);
+	}
+	
+	//Xóa Event
+	@DeleteMapping("/events/{eventId}")
+	public ResponseEntity<Object> deleteEvent(@PathVariable Long eventId) {
+		return eventService.deleteEvent(eventId);
+	}
+	
+	//Chỉnh trạng thái của event
+	@PutMapping("/events/{eventId}/status")
+	public ResponseEntity<Object> updateEventStatus(@PathVariable Long eventId, @RequestBody EventDTO eventDTO) {
+		return eventService.updateEventStatus(eventId, eventDTO);
+	}
+	
+	//Thêm event
+	@PostMapping("/events")
+	public ResponseEntity<Object> addEvent(@RequestBody EventDTO eventData) {
+		return eventService.addEvent(eventData);
+	}
+	
+	//Thêm language
+	@PostMapping("/events/{eventId}/languages")
+	public ResponseEntity<Object> addLanguages(@PathVariable Long eventId,@RequestBody EventLanguagesDTO eventLanguagesDTO) {
+		//EventLanguagesDTO eventLanguagesDTO = new EventLanguagesDTO();
+		return eventService.addEventLanguages(eventId,eventLanguagesDTO);
+	}
+	
+	//Thêm technology
+	@PostMapping("/events/{eventId}/technologies") 
+	public ResponseEntity<Object> addTechnology(@PathVariable Long eventId,@RequestBody EventTechnologiesDTO eventTechnologiesDTO) {
+		//EventTechnologiesDTO eventTechnologiesDTO = new EventTechnologiesDTO();
+		//eventTechnologiesDTO.setTechnology(technology);
+		return eventService.addEventTechnologies(eventId,eventTechnologiesDTO);
+	}
+	
+	//Thêm schedule
+	@PostMapping("/events/{eventId}/schedule")
+	public ResponseEntity<Object> addSchedule(@PathVariable Long eventId,@RequestBody EventScheduleDTO scheduleData) {
+		return eventService.addEventSchedule(eventId,scheduleData);
+	}
+	
+	//Thêm phần thưởng
+	@PostMapping("/events/{eventId}/prizes")
+	public ResponseEntity<Object> addPrize(@PathVariable Long eventId,@RequestBody EventPrizesDTO prizeData) {
+		return eventService.addEventPrizes(eventId,prizeData);
 	}
 }

@@ -1,13 +1,21 @@
 package com.javaweb.model.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 public class AdminDTO {
 	private Long UserID;
+	//@NotBlank(message = "Username không được để trống") //Check chuỗi không rỗng, khoảng trắng
 	private String username;
+	//@NotBlank(message = "Email không được để trống")
+	//@Email(message = "Email không đúng định dạng") //Check định dạng email
 	private String email;
+	@NotBlank(message = "Password không được để trống")
+	//@Size: check độ dài password
 	private String password;
 	private String fullname;
 	private String dateOfBirth;

@@ -3,13 +3,18 @@ package com.javaweb.entity.event;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
@@ -55,6 +60,39 @@ public class EventEntity {
 	@Column(name="UpdatedAt")
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
+	@OneToMany(mappedBy = "eventTechnology" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<EventTechnologiesEntity> eventTechnologies = new ArrayList<>();
+	@OneToMany(mappedBy = "eventLanguage" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<EventProgrammingLanguagesEntity> eventProgrammingLanguages = new ArrayList<>();
+	@OneToMany(mappedBy = "eventSchedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<EventScheduleEntity> eventSchedule = new ArrayList<>();
+	@OneToMany(mappedBy = "eventPrize", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<EventPrizesEntity> eventPrizes = new ArrayList<>();
+	
+	public List<EventTechnologiesEntity> getEventTechnologies() {
+		return eventTechnologies;
+	}
+	public void setEventTechnologies(List<EventTechnologiesEntity> eventTechnologies) {
+		this.eventTechnologies = eventTechnologies;
+	}
+	public List<EventProgrammingLanguagesEntity> getEventProgrammingLanguages() {
+		return eventProgrammingLanguages;
+	}
+	public void setEventProgrammingLanguages(List<EventProgrammingLanguagesEntity> eventProgrammingLanguages) {
+		this.eventProgrammingLanguages = eventProgrammingLanguages;
+	}
+	public List<EventScheduleEntity> getEventSchedule() {
+		return eventSchedule;
+	}
+	public void setEventSchedule(List<EventScheduleEntity> eventSchedule) {
+		this.eventSchedule = eventSchedule;
+	}
+	public List<EventPrizesEntity> getEventPrizes() {
+		return eventPrizes;
+	}
+	public void setEventPrizes(List<EventPrizesEntity> eventPrizes) {
+		this.eventPrizes = eventPrizes;
+	}
 	public Long getEventID() {
 		return EventID;
 	}

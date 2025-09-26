@@ -142,7 +142,7 @@ public class CourseServiceImpl implements ICourseService {
         }
         CourseModuleEntity module = modelMapper.map(moduleDTO, CourseModuleEntity.class);
         						
-        module.setCourses(course);
+        module.setCourses(course);//Lưu course để map tới id của nó
 
         courseModuleRepository.save(module);
 

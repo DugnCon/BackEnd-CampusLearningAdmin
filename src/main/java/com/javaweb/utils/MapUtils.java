@@ -19,4 +19,20 @@ public class MapUtils {
 		}
 		return null;
 	}
+	
+	public static <T> boolean getObjectTwo(Object object, Class<T> tClass) {
+		if(object != null) {
+			if(tClass.getTypeName().equals("java.lang.String")) {
+				object = object != null ? object.toString() : null;
+			} else if(tClass.getTypeName().equals("java.lang.Long")) {
+				object = object != null ? Long.valueOf(object.toString()) : null;
+			} else if(tClass.getTypeName().equals("java.lang.Double")) {
+				object = object != null ? Double.valueOf(object.toString()) : null;
+			} else {
+				object = object != null ? Integer.valueOf(object.toString()) : null;
+			}
+			return true;
+		}
+		return false;
+	}
 }
