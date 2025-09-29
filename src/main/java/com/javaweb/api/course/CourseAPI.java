@@ -12,7 +12,9 @@ import com.javaweb.builder.CourseModuleBuilder;
 import com.javaweb.converter.CourseConverter;
 import com.javaweb.converter.CourseModuleConverter;
 import com.javaweb.model.dto.CourseDTO;
+import com.javaweb.model.dto.CourseLessonsDTO;
 import com.javaweb.model.dto.CourseModuleDTO;
+import com.javaweb.service.ICourseLessonService;
 import com.javaweb.service.ICourseModuleServiceEdit;
 import com.javaweb.service.ICourseService;
 import com.javaweb.service.ICourseServiceEdit;
@@ -33,6 +35,8 @@ public class CourseAPI {
     private CourseConverter courseConverter;
     @Autowired
     private CourseModuleConverter courseModuleConverter;
+    @Autowired
+    private ICourseLessonService courseLessonService;
 
     // tạo khóa học
     @PostMapping("/courses")
@@ -55,7 +59,7 @@ public class CourseAPI {
     //Xem truoc module khoa hoc
     @GetMapping("/courses/{courseId}/modules")
     public ResponseEntity<Object> getCourseModulePreview(@PathVariable Long courseId) {
-    	return null;
+    	return courseModuleServiceEdit.getCoureModule(courseId);
     }
     
     //edit khóa học
@@ -64,6 +68,12 @@ public class CourseAPI {
     	CourseBuilder courseBuilder =  courseConverter.toCourseBuilder(courseData);
     	courseBuilder.setCourseID(courseId);
     	return courseEditService.updateCourse(courseBuilder);
+    }
+    
+    //Xem chi tiêts module
+    @GetMapping("/courses/{courseId}/modules/{moduleId}")
+    public ResponseEntity<Object> getCourseInPreview(@PathVariable Long courseId, @PathVariable Long moduleId) {
+    	return courseModuleServiceEdit.getCoureModule(courseId);
     }
     
     //edit module cuả khóa học
@@ -117,5 +127,41 @@ public class CourseAPI {
     @DeleteMapping("/courses/{courseId}")
     public ResponseEntity<Object> deleteCourse(@PathVariable Long courseId) {
     	return courseEditService.deleteCourse(courseId);
+    }
+    
+    //Xóa module
+    @DeleteMapping("/courses/{courseId}/modules/{moduleId}")
+    public ResponseEntity<Object> deleteModule(@PathVariable Long courseId, @PathVariable Long moduleId) {
+    	return courseModuleServiceEdit.deleteCoureModule(courseId, moduleId);
+    }
+    
+  //Đưa dữ liệu Lesson
+    @GetMapping("/courses/{courseId}/modules/{moduleId}/lessons")
+    public ResponseEntity<Object> getCourseLesson(@PathVariable Long courseId, @PathVariable Long moduleId) {
+    	return courseLessonService.getAllCourseLesson(moduleId);
+    }
+    
+    //Thêm bài học
+    @PostMapping("/courses/{courseId}/modules/{moduleId}/lessons")
+    public ResponseEntity<Object> createCourseLesson(@PathVariable Long courseId, @PathVariable Long moduleId,@RequestBody CourseLessonsDTO courseLessonsDTO) {
+    	return courseLessonService.insertCourseLesson(moduleId, courseLessonsDTO);
+    }
+    
+  //Đưa dữ liệu Lesson
+    @GetMapping("/courses/{courseId}/modules/{moduleId}/lessons/{lessonId}")
+    public ResponseEntity<Object> getPreviewCourseLesson(@PathVariable Long courseId, @PathVariable Long moduleId, @PathVariable Long lessonId) {
+    	return courseLessonService.getAllCourseLesson(moduleId);
+    }
+    
+    //Xóa lesson
+    @DeleteMapping("/courses/{courseId}/modules/{moduleId}/lessons/{lessonId}")
+    public ResponseEntity<Object> deleteModuleLesson(@PathVariable Long courseId, @PathVariable Long moduleId , @PathVariable Long lessonId) {
+    	return courseLessonService.deleteCourseLesson(lessonId);
+    }
+    
+    //Update lesson
+    @PutMapping("/courses/{courseId}/modules/{moduleId}/lessons/{lessonId}")
+    public ResponseEntity<Object> updateModuleLesson(@PathVariable Long courseId, @PathVariable Long moduleId , @PathVariable Long lessonId, @RequestBody CourseLessonsDTO courseLessonsDTO) {
+    	return courseLessonService.updateCourseLesson(lessonId, courseLessonsDTO);
     }
 }

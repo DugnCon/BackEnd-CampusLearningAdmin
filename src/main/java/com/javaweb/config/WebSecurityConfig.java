@@ -102,7 +102,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Cho phép OPTIONS
                 .antMatchers("/auth/login", "/auth/register").permitAll() // Cho phép tất cả login/register
-                .antMatchers("/admin/**").hasAnyAuthority("ADMIN", "MANAGER", "STAFF") // Bảo vệ admin routes
+                .antMatchers("/auth/**").hasAnyAuthority("ADMIN", "TEACHER") // Bảo vệ admin routes
                 .antMatchers("/**").permitAll() // Public routes
                 .anyRequest().authenticated() // Các request khác cần auth
             .and()

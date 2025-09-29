@@ -194,7 +194,7 @@ public class CourseServiceImpl implements ICourseService {
 	public ResponseEntity<Object> getCoursePreview(Long courseID) {
 		Map<String,Object> courseEntity = courseRepositoryCustom.getCoursePreview(courseID);
 		if(courseEntity != null) {
-			return ResponseEntity.ok().body(Map.of("status","Get Successfully", "courses", courseEntity));
+			return ResponseEntity.ok().body(courseEntity);
 		} else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", HttpStatus.INTERNAL_SERVER_ERROR.value()));
 		}

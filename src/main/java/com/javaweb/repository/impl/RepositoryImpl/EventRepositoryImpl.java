@@ -26,5 +26,34 @@ public class EventRepositoryImpl implements EventRepositoryCustom{
 		List<Map<String, Object>> list = qr.getResultList();
 		return list;
 	}
+	@Override
+	public Map<String, Object> getEventPreview(Long eventId) {
+		String sql = "select EventID, Title, EventDate, Location, Category"
+				+ ", MaxAttendees, Difficulty, Organizer, CreatedAt ,CurrentAttendees, Price, "
+				+ "Status from events where EventID = :eventId";
+		Query qr = entityManager.createNativeQuery(sql);
+		qr.setParameter("eventId", eventId);
+		qr.unwrap(org.hibernate.query.NativeQuery.class)
+		  .setResultTransformer(org.hibernate.transform.AliasToEntityMapResultTransformer.INSTANCE);
+		return (Map<String, Object>) qr.getSingleResult();
+	}
+	@Override
+	public Map<String, Object> getTechnologiesPreview(Long eventId) {
+		return null;
+	}
+	@Override
+	public Map<String, Object> getPrizesPreview(Long eventId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Map<String, Object> getLanguagesPreview(Long eventId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Map<String, Object> getSchedulePreview(Long eventId) {
+		return null;
+	}
 
 }

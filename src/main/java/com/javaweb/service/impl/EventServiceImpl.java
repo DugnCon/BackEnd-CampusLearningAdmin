@@ -22,6 +22,7 @@ import com.javaweb.model.dto.EventLanguagesDTO;
 import com.javaweb.model.dto.EventPrizesDTO;
 import com.javaweb.model.dto.EventScheduleDTO;
 import com.javaweb.model.dto.EventTechnologiesDTO;
+import com.javaweb.repository.IEventParticipantsRepository;
 import com.javaweb.repository.IEventPrizesRepository;
 import com.javaweb.repository.IEventProgrammingLanguagesRepository;
 import com.javaweb.repository.IEventRepository;
@@ -44,6 +45,8 @@ public class EventServiceImpl implements IEventService{
 	@Autowired
 	private IEventTechnologiesRepository eventTechnologiesRepository;
 	@Autowired
+	private IEventParticipantsRepository eventParticipantsRepository;
+	@Autowired
 	private ModelMapper modelMapper;
 	@Autowired
 	private EventRepositoryCustom eventRepositoryCustom;
@@ -58,14 +61,7 @@ public class EventServiceImpl implements IEventService{
 	@Override
 	@Transactional
 	public ResponseEntity<Object> getEventPreview(Long eventId) {
-	    Optional<EventEntity> eventEntity = eventRepository.findById(eventId);
-
-	    if (eventEntity.isEmpty()) {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-	                .body(Map.of("status", "error", "message", "Event not found"));
-	    }
-
-	    return ResponseEntity.ok(eventEntity.get());
+	    return ResponseEntity.ok(eventRepositoryCustom.getEventPreview(eventId));
 	}
 
 
@@ -102,7 +98,7 @@ public class EventServiceImpl implements IEventService{
 		}
 		//String technologies = eventTechnologiesDTO.getTechnology();
 		EventTechnologiesEntity eventTechnologiesEntity = modelMapper.map(eventTechnologiesDTO, EventTechnologiesEntity.class);
-		eventTechnologiesEntity.setEvents(eventEntity);
+		eventTechnologiesEntity.setEventTechnology(eventEntity);
 		eventTechnologiesRepository.save(eventTechnologiesEntity);
 		return ResponseEntity.ok(Map.of("status","Saved OK!"));
 	}
@@ -128,7 +124,7 @@ public class EventServiceImpl implements IEventService{
 	                    .body(Map.of("status", "error", "message", "Event not found")); 
 		}
 		EventPrizesEntity eventPrizesEntity = modelMapper.map(eventPrizesDTO, EventPrizesEntity.class);
-		eventPrizesEntity.setEventPrizes(eventEntity);
+		eventPrizesEntity.setEventPrize(eventEntity);
 		eventPrizesRepository.save(eventPrizesEntity);
 		return ResponseEntity.ok(Map.of("status","Saved OK!"));
 	}
@@ -199,6 +195,38 @@ public class EventServiceImpl implements IEventService{
 			}
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", HttpStatus.BAD_REQUEST.value()));
+	}
+
+	@Override
+	public ResponseEntity<Object> getTechnologiesPreview(Long eventId) {
+		return ResponseEntity.ok(eventTechnologiesRepository.findByEventId(eventId));
+	}
+
+	@Override
+	public ResponseEntity<Object> getLanguagesPreview(Long eventId) {
+		
+		return ResponseEntity.ok(eventLanguagesRepository.findByEventId(eventId));
+	}
+	
+	@Override
+	public ResponseEntity<Object> getSchedulePreview(Long eventId) {
+		return ResponseEntity.ok(eventScheduleRepository.findByEventId(eventId));
+	}
+
+	@Override
+	public ResponseEntity<Object> getPrizesPreview(Long eventId) {
+		return ResponseEntity.ok(eventPrizesRepository.findByEventId(eventId));
+	}
+
+	@Override
+	public ResponseEntity<Object> getParticipantsPreview(Long eventId) {
+		return ResponseEntity.ok(eventParticipantsRepository.findByEventId(eventId));
+	}
+
+	@Override
+	public ResponseEntity<Object> deleteEventSchedule(Long scheduleId) {
+		eventScheduleRepository.deleteById(scheduleId);
+		return ResponseEntity.ok(Map.of("status", "Successfully deleted schedule"));
 	}
 
 }

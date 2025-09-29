@@ -23,7 +23,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
+//import com.javaweb.entity.CourseModule.CourseModuleEntity;
+import com.javaweb.entity.exams.ExamsEntity;
 /*@NamedStoredProcedureQuery(
 		name="CourseEntity.getAllCourse",
 		procedureName="all_course",
@@ -75,6 +76,9 @@ public class CourseEntity {
 	private LocalDateTime updatedAt;
 	@OneToMany(mappedBy = "courses", cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
 	private List<CourseModuleEntity> coursemodules = new ArrayList<>();
+	@OneToMany(mappedBy = "courseExams", cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+	private List<ExamsEntity> exams = new ArrayList<>();
+	
 	public Long getCourseID() {
 		return CourseID;
 	}
@@ -184,5 +188,13 @@ public class CourseEntity {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
+    public List<ExamsEntity> getExams() {
+        return exams;
+    }
+
+    public void setExams(List<ExamsEntity> exams) {
+        this.exams = exams;
+    }
 	
 }

@@ -1,5 +1,6 @@
 package com.javaweb.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.javaweb.builder.CourseModuleBuilder;
+import com.javaweb.entity.Course.CourseEntity;
 import com.javaweb.entity.Course.CourseModuleEntity;
 import com.javaweb.repository.ICourseModuleRepository;
+import com.javaweb.repository.ICourseRepository;
+import com.javaweb.repository.impl.CourseRepositoryCustom.CourseRepositoryCustom;
 import com.javaweb.service.ICourseModuleServiceEdit;
 
 @Service
@@ -17,6 +21,10 @@ public class CourseModuleServiceEdit implements ICourseModuleServiceEdit{
 	
 	@Autowired
 	private ICourseModuleRepository courseModuleRepository;
+	@Autowired
+	private CourseRepositoryCustom courseModuleRepositoryCustom;
+	@Autowired
+	private ICourseRepository courseRepository;
 
 	@Override
 	public ResponseEntity<Object> updateCoureModule(CourseModuleBuilder courseModuleBuilder, Long courseId,Long moduleId) {
@@ -48,10 +56,19 @@ public class CourseModuleServiceEdit implements ICourseModuleServiceEdit{
 	}
 
 	@Override
-	public ResponseEntity<Object> deleteCoureModule(CourseModuleBuilder courseModuleBuilder, Long courseId,
-			Long moduleId) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseEntity<Object> deleteCoureModule(Long courseId,Long moduleId) {
+		if(moduleId != null) {
+			courseModuleRepository.deleteById(moduleId);
+			return ResponseEntity.ok(Map.of("status", "Successfully deleted module"));
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "ModuleID is null"));
+	}
+
+	@Override
+	public ResponseEntity<Object> getCoureModule(Long courseId) {
+		//List<CourseModuleEntity> courseModuleEntity = courseModuleRepository.findByCourseID(courseId);
+		//return ResponseEntity.ok(courseModuleEntity);
+		return ResponseEntity.ok(courseModuleRepositoryCustom.getCourseModule(courseId));
 	}
 
 }

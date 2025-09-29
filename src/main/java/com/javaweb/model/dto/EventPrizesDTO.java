@@ -1,5 +1,8 @@
 package com.javaweb.model.dto;
 
+import lombok.Data;
+
+@Data
 public class EventPrizesDTO {
 	private Long PrizeID;
 	private Long EventID;

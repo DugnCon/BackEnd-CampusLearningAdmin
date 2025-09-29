@@ -74,7 +74,7 @@ public class JwtService {
                 .setSigningKey(key) //Muốn lấy claims phải cung cấp key để xác minh
                 .build() //Set up xong thì cần build ra thì mới lấy được các đoói tượng
                 .parseClaimsJws(token) //Khi build xong thì giải mã token FE gửi xuống để lấy được header, payload và signature
-                .getBody(); //Phần này là lấy dữ liêuj từ PayLoad
+                .getBody(); //Phần này là lấy dữ liêu từ PayLoad
         		//Có cả getHeader và getSignature
     }
     //Kiểm tra thời gian của token

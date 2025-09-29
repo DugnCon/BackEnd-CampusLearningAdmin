@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="eventprogramminglanguages")
 public class EventProgrammingLanguagesEntity {
@@ -20,7 +22,15 @@ public class EventProgrammingLanguagesEntity {
 	private String language;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="EventID")
+	@JsonBackReference
 	private EventEntity eventLanguage;
+	
+	public EventEntity getEventLanguage() {
+		return eventLanguage;
+	}
+	public void setEventLanguage(EventEntity eventLanguage) {
+		this.eventLanguage = eventLanguage;
+	}
 	public Long getLanguageID() {
 		return LanguageID;
 	}

@@ -6,9 +6,15 @@ public class CourseModuleDTO {
     private String title;
     private String description;
     private String videoUrl;
+    private Integer orderIndex;
     private String imageUrl;
-
-    public String getTitle() {
+    public Integer getOrderIndex() {
+		return orderIndex;
+	}
+	public void setOrderIndex(Integer orderIndex) {
+		this.orderIndex = orderIndex;
+	}
+	public String getTitle() {
         return title;
     }
     public void setTitle(String title) {

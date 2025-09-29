@@ -1,5 +1,7 @@
 package com.javaweb.utils;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Map;
 
 public class MapUtils {
@@ -35,4 +37,18 @@ public class MapUtils {
 		}
 		return false;
 	}
+	
+	public static LocalDateTime toLocalDateTime(Object value) {
+	    if (value == null) return null;
+	    if (value instanceof java.sql.Timestamp) {
+	        return ((java.sql.Timestamp) value).toLocalDateTime();
+	    }
+	    if (value instanceof java.util.Date) {
+	        return ((java.util.Date) value).toInstant()
+	                .atZone(ZoneId.systemDefault())
+	                .toLocalDateTime();
+	    }
+	    throw new IllegalArgumentException("Unsupported type: " + value.getClass());
+	}
+
 }

@@ -33,6 +33,11 @@ public class AdminAPI {
 	public ResponseEntity<Object> adminLogin(@Valid @RequestBody AdminDTO adminDTO) {
 		return adminServiceLogin.AdminLogin(adminDTO);
 	}
+	
+	@PostMapping("/auth/logout")
+	public ResponseEntity<Object> adminLogout() {
+		return null;
+	}
 	//Chỉ cần check sign của jwt mà không cần query
 	@GetMapping("/auth/session")
 	public ResponseEntity<Object> checkSession(HttpServletRequest request) {

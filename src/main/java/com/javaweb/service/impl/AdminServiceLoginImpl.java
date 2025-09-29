@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.javaweb.constant.SystemConstant;
 import com.javaweb.model.dto.AdminDTO;
 import com.javaweb.repository.IAdminRepositoryLogin;
 import com.javaweb.service.IAdminServiceLogin;
@@ -49,18 +50,23 @@ public class AdminServiceLoginImpl implements IAdminServiceLogin{
 	    String email = objectConfig.StringConfig(admin.get("u_email_"));
 	    String role = objectConfig.StringConfig(admin.get("u_role"));
 
-	    //SInh JWT với ID và EMail
-	    String token = jwtService.generateTokenWithClaims(
-	        Map.of("id", id, "identifier", adminDTO.getIdentifier(), "role", role)
-	    );
+	    if(role.equals(SystemConstant.ADMIN_ROLE) || role.equals(SystemConstant.TEACHER_ROLE)) {
+	    	//SInh JWT với ID và EMail
+		    String token = jwtService.generateTokenWithClaims(
+		        Map.of("id", id, "identifier", adminDTO.getIdentifier(), "role", role)
+		    );
 
-	    return ResponseEntity.ok(Map.of(
-	        "message", "Login Successfully!",
-	        "username", username,
-	        "email", email,
-	        "role", role,
-	        "token", token
-	    ));
+		    return ResponseEntity.ok(Map.of(
+		        "message", "Login Successfully!",
+		        "username", username,
+		        "email", email,
+		        "role", role,
+		        "token", token
+		    ));
+	    } else {
+	    	return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+	                .body(Map.of("message", "Not Authorized"));
+	    }
 	}
 
 }

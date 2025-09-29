@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="eventschedule")
 public class EventScheduleEntity {
@@ -21,6 +23,7 @@ public class EventScheduleEntity {
 	private Long ScheduleID;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="EventID")
+	@JsonBackReference
 	private EventEntity eventSchedule;
 	@Column(name="ActivityName")
 	private String activityName;

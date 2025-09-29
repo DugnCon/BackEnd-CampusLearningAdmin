@@ -13,6 +13,11 @@ import com.javaweb.model.dto.EventTechnologiesDTO;
 public interface IEventService {
 	ResponseEntity<Object> getAllEvent();
 	ResponseEntity<Object> getEventPreview(Long eventId);
+	ResponseEntity<Object> getTechnologiesPreview(Long eventId);
+	ResponseEntity<Object> getLanguagesPreview(Long eventId);
+	ResponseEntity<Object> getSchedulePreview(Long eventId);
+	ResponseEntity<Object> getPrizesPreview(Long eventId);
+	ResponseEntity<Object> getParticipantsPreview(Long eventId);
 	ResponseEntity<Object> addEvent(EventDTO eventDTO);
 	ResponseEntity<Object> addEventLanguages(Long eventId,EventLanguagesDTO eventLanguagesDTO);
 	ResponseEntity<Object> addEventTechnologies(Long eventId,EventTechnologiesDTO eventTechnologiesDTO);
@@ -20,5 +25,6 @@ public interface IEventService {
 	ResponseEntity<Object> addEventPrizes(Long eventId,EventPrizesDTO eventPrizesDTO);
 	ResponseEntity<Object> updateEvent(Long eventId,EventDTO eventDTO);
 	ResponseEntity<Object> deleteEvent(Long eventId);
+	ResponseEntity<Object> deleteEventSchedule(Long scheduleId);
 	ResponseEntity<Object> updateEventStatus(Long eventId, EventDTO eventDTO);
 }

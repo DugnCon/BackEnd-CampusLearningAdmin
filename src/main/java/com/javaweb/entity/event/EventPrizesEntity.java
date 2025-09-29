@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="eventprizes")
 public class EventPrizesEntity {
@@ -18,10 +20,11 @@ public class EventPrizesEntity {
 	private Long PrizeID;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="EventID")
+	@JsonBackReference
 	private EventEntity eventPrize;
 	@Column(name="Ranking")
 	private Integer rank;
-	@Column(name="PrizeAmount")
+	@Column(name="PrizeAmount", precision=10, scale=2)
 	private Double amount;
 	@Column(name="Description")
 	private String description;
@@ -31,10 +34,11 @@ public class EventPrizesEntity {
 	public void setPrizeID(Long prizeID) {
 		PrizeID = prizeID;
 	}
-	public EventEntity getEventPrizes() {
+	
+	public EventEntity getEventPrize() {
 		return eventPrize;
 	}
-	public void setEventPrizes(EventEntity eventPrize) {
+	public void setEventPrize(EventEntity eventPrize) {
 		this.eventPrize = eventPrize;
 	}
 	public Integer getRank() {

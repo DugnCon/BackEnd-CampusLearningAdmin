@@ -32,37 +32,71 @@ public class EventAPI {
 		return eventService.getAllEvent();
 	}
 	
-	//Xem trước event
 	@GetMapping("/events/{eventId}")
-	public ResponseEntity<Object> getPreviewEvent(@PathVariable Long eventId) {
-		return eventService.getEventPreview(eventId);
-	}
-	
-	@GetMapping("/events/{eventId}/technologies")
-	public ResponseEntity<Object> getPreviewTechnologies() {
-		return null;
-	}
-	
-	@GetMapping("/events/{eventId}/languages")
-	public ResponseEntity<Object> getPreviewLanguages() {
-		return null;
-	}
-	
-	@GetMapping("/events/{eventId}/schedule")
-	public ResponseEntity<Object> getPreviewSchedule() {
-		return null;
-	}
-	
-	@GetMapping("/events/{eventId}/participants")
-	public ResponseEntity<Object> getPreviewParticipants() {
-		return null;
-	}
-	
-	@GetMapping("/events/{eventId}/prizes")
-	public ResponseEntity<Object> getPreviewPrizes() {
-		return null;
-	}
-	
+    public ResponseEntity<Object> getPreviewEvent(@PathVariable Long eventId) {
+        try {
+            return eventService.getEventPreview(eventId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("status", "error", "message", e.getMessage()));
+        }
+    }
+
+    @GetMapping("/events/{eventId}/technologies")
+    public ResponseEntity<Object> getPreviewTechnologies(@PathVariable Long eventId) {
+        try {
+            return eventService.getTechnologiesPreview(eventId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("status", "error", "message", e.getMessage()));
+        }
+    }
+
+    @GetMapping("/events/{eventId}/languages")
+    public ResponseEntity<Object> getPreviewLanguages(@PathVariable Long eventId) {
+        try {
+            return eventService.getLanguagesPreview(eventId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("status", "error", "message", e.getMessage()));
+        }
+    }
+
+    @GetMapping("/events/{eventId}/schedule")
+    public ResponseEntity<Object> getPreviewSchedule(@PathVariable Long eventId) {
+        try {
+            return eventService.getSchedulePreview(eventId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("status", "error", "message", e.getMessage()));
+        }
+    }
+
+    @GetMapping("/events/{eventId}/participants")
+    public ResponseEntity<Object> getPreviewParticipants(@PathVariable Long eventId) {
+        try {
+            return eventService.getParticipantsPreview(eventId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("status", "error", "message", e.getMessage()));
+        }
+    }
+
+    @GetMapping("/events/{eventId}/prizes")
+    public ResponseEntity<Object> getPreviewPrizes(@PathVariable Long eventId) {
+        try {
+            return eventService.getPrizesPreview(eventId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("status", "error", "message", e.getMessage()));
+        }
+    }
 	//Edit Event
 	@PutMapping("/events/{eventId}")
 	public ResponseEntity<Object> updateEvent(@PathVariable Long eventId, @RequestBody EventDTO eventDTO) {
@@ -111,9 +145,16 @@ public class EventAPI {
 		return eventService.addEventSchedule(eventId,scheduleData);
 	}
 	
+	@DeleteMapping("/events/{eventId}/schedule/{scheduleId}")
+	public ResponseEntity<Object> deleteSchedule(@PathVariable Long eventId,@PathVariable Long scheduleId) {
+		return eventService.deleteEventSchedule(scheduleId);
+	}
+	
 	//Thêm phần thưởng
 	@PostMapping("/events/{eventId}/prizes")
 	public ResponseEntity<Object> addPrize(@PathVariable Long eventId,@RequestBody EventPrizesDTO prizeData) {
 		return eventService.addEventPrizes(eventId,prizeData);
 	}
+	
+	
 }
