@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.javaweb.entity.user.UserEntity;
 
 @Entity
 @Table(name="eventparticipants")
@@ -27,10 +28,24 @@ public class EventParticipantsEntity {
     @JoinColumn(name="EventID", nullable = false)
     @JsonBackReference
     private EventEntity eventParticipant;
-    
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="UserID", nullable = false)
+    @JsonBackReference
+    private UserEntity users;
+
+    public UserEntity getUsers() {
+        return users;
+    }
+
+    public void setUsers(UserEntity users) {
+        this.users = users;
+    }
+
     /**
      * Sau update thêm UserID nữa
      * **/
+
 
     @Column(name = "RegistrationDate", nullable = false)
     private LocalDateTime registrationDate;

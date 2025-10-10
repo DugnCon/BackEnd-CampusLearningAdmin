@@ -1,5 +1,6 @@
 package com.javaweb.model.dto;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,14 +28,21 @@ public class CourseDTO {
     private String imageUrl;     
     private String videoUrl;   
     private Boolean isPublished; 
-    private String slug;       
-
+    private String slug;
+    private LocalDateTime publishedAt;
     // Danh sách module kèm theo
     private List<CourseModuleDTO> coursemodules = new ArrayList<>();
 
     // Getters & Setters
+    
     public Long getCourseID() { return courseID; }
-    public void setCourseID(Long courseID) { this.courseID = courseID; }
+    public LocalDateTime getPublishedAt() {
+		return publishedAt;
+	}
+	public void setPublishedAt(LocalDateTime publishedAt) {
+		this.publishedAt = publishedAt;
+	}
+	public void setCourseID(Long courseID) { this.courseID = courseID; }
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }

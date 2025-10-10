@@ -90,10 +90,15 @@ public class CourseServiceEditImpl implements ICourseServiceEdit{
 	}
 
 	@Override
+	@Transactional
 	public ResponseEntity<Object> deleteCourse(Long courseId) {
-		CourseEntity courseEntity = courseEditRepository.findById(courseId).orElseThrow(() -> new RuntimeException("Not Found"));
-		courseEntity.setCourseID(courseId);
-		courseEditRepository.delete(courseEntity);
-		return ResponseEntity.ok(Map.of("status", "Deleted Successfully!"));
+		//CourseEntity courseEntity = courseEditRepository.findById(courseId).orElseThrow(() -> new RuntimeException("Not Found"));
+		//courseEntity.setCourseID(courseId);
+		try {
+			courseEditRepository.deleteById(courseId);
+			return ResponseEntity.ok(Map.of("status", "Deleted Successfully!"));
+		}catch(Exception e) {
+			throw new RuntimeException(e + " can not delete course");
+		}
 	}
 }

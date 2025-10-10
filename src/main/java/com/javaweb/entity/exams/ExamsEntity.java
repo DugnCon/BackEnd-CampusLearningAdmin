@@ -4,12 +4,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.GenerationType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,9 @@ import java.util.List;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.javaweb.entity.Course.CourseEntity;
 @Entity
 @Table(name = "exams")
@@ -49,13 +54,75 @@ public class ExamsEntity {
     private boolean allowReview;
     @Column(name="ShuffleQuestions")
     private boolean shuffleQuestions;
+	@Column(name="AllowRetakes")
+	private boolean allowRetakes;
+	@Column(name="MaxRetakes")
+	private Integer maxRetakes;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CourseID", nullable = false)
+    @JsonBackReference
     private CourseEntity courseExams;
     @OneToMany(mappedBy = "exams", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<ExamQuestionsEntity> questions = new ArrayList<>();
     @OneToMany(mappedBy = "examTemplates", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<ExamAnswerTemplatesEntity> examAnswerTemplates = new ArrayList<>();
+    
+    // không map DB và nó chỉ để trả JSON
+    @Transient
+    private Long courseId;
+    @Transient
+    private String CourseTitle;
+    @Transient
+    private String difficulty = "NONE";
+
+    public String getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty() {
+		this.difficulty = "NONE";
+	}
+
+	public String getCourseTitle() {
+		return courseExams != null ? courseExams.getTitle() : null;
+	}
+
+	public void setCourseTitle(String courseTitle) {
+		this.CourseTitle = courseTitle;
+	}
+
+	public boolean isAllowRetakes() {
+		return allowRetakes;
+	}
+
+	public void setAllowRetakes(boolean allowRetakes) {
+		this.allowRetakes = allowRetakes;
+	}
+
+	public Integer getMaxRetakes() {
+		return maxRetakes;
+	}
+
+	public void setMaxRetakes(Integer maxRetakes) {
+		this.maxRetakes = maxRetakes;
+	}
+
+	public void setDifficulty(String difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public Long getCourseId() {
+        if (courseExams != null) {
+            return courseExams.getCourseID();
+        }
+        return null;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
     
     public List<ExamAnswerTemplatesEntity> getExamAnswerTemplates() {
 		return examAnswerTemplates;

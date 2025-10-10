@@ -1,15 +1,11 @@
 package com.javaweb.entity.user;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import javax.persistence.*;
+import java.util.*;
+import com.javaweb.entity.event.EventParticipantsEntity;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -47,6 +43,15 @@ public class UserEntity {
 	private Integer lockDuration;
 	@Column(name="LockReason")
 	private String lockReason;
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<EventParticipantsEntity> eventParticipants = new HashSet<>();
+
+	public Set<EventParticipantsEntity> getEventParticipants() {
+		return eventParticipants;
+	}
+	public void setEventParticipants(Set<EventParticipantsEntity> eventParticipants) {
+		this.eventParticipants = eventParticipants;
+	}
 	public Integer getLockDuration() {
 		return lockDuration;
 	}

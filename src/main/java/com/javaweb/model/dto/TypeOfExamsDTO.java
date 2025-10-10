@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,37 +22,16 @@ public class TypeOfExamsDTO {
 	private Long QuestionID;
 	private Long TemplateID;
 	private Integer points;
-	private Integer content;
+	private String content;
 	private Integer orderIndex;
 	private List<String> options;
 	private String correctAnswer;
-	private String explaination;
-	private List<String> keywords = new ArrayList<>();
-	private Double minimumMatchPercentage;
-	private Map<String, Object> essayData = new HashMap<>();
+	private String explanation;
 	public Long getTemplateID() {
 		return TemplateID;
 	}
 	public void setTemplateID(Long templateID) {
 		TemplateID = templateID;
-	}
-	public List<String> getKeywords() {
-		return keywords;
-	}
-	public void setKeywords(List<String> keywords) {
-		this.keywords = keywords;
-	}
-	public Double getMinimumMatchPercentage() {
-		return minimumMatchPercentage;
-	}
-	public void setMinimumMatchPercentage(Double minimumMatchPercentage) {
-		this.minimumMatchPercentage = minimumMatchPercentage;
-	}
-	public Map<String, Object> getEssayData() {
-		return essayData;
-	}
-	public void setEssayData(Map<String, Object> essayData) {
-		this.essayData = essayData;
 	}
 	public Long getQuestionID() {
 		return QuestionID;
@@ -64,12 +45,15 @@ public class TypeOfExamsDTO {
 	public void setPoints(Integer points) {
 		this.points = points;
 	}
-	public Integer getContent() {
+
+	public String getContent() {
 		return content;
 	}
-	public void setContent(Integer content) {
+
+	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public Integer getOrderIndex() {
 		return orderIndex;
 	}
@@ -89,11 +73,12 @@ public class TypeOfExamsDTO {
 	public void setCorrectAnswer(String correctAnswer) {
 		this.correctAnswer = correctAnswer;
 	}
-	public String getExplaination() {
-		return explaination;
+	public String getExplanation() {
+		return explanation;
 	}
-	public void setExplaination(String explaination) {
-		this.explaination = explaination;
+	public void setExplanation(String explanation) {
+		this.explanation = explanation;
 	}
+	
 	
 }

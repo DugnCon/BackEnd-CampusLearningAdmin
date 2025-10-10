@@ -11,11 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ExamsDTO {
 	private Long ExamID;
-	private Long courseID;
+	private Long courseId;
 	private String courseTitle;
 	private String title;
 	private String description;
 	private String type;
+	private String status;
 	private Integer duration;
 	private Integer totalPoints;
 	private Integer passingScore;
@@ -24,18 +25,42 @@ public class ExamsDTO {
 	private String instructions;
 	private boolean allowReview;
 	private boolean shuffleQuestions;
-	
+	private boolean allowRetakes;
+	private Integer maxRetakes;
+
+	public boolean isAllowRetakes() {
+		return allowRetakes;
+	}
+
+	public Integer getMaxRetakes() {
+		return maxRetakes;
+	}
+
+	public void setAllowRetakes(boolean allowRetakes) {
+		this.allowRetakes = allowRetakes;
+	}
+
+	public void setMaxRetakes(Integer maxRetakes) {
+		this.maxRetakes = maxRetakes;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Long getCourseId() {
+		return courseId;
+	}
+	public void setCourseId(Long courseId) {
+		this.courseId = courseId;
+	}
 	public String getCourseTitle() {
 		return courseTitle;
 	}
 	public void setCourseTitle(String courseTitle) {
 		this.courseTitle = courseTitle;
-	}
-	public Long getCourseID() {
-		return courseID;
-	}
-	public void setCourseID(Long courseID) {
-		this.courseID = courseID;
 	}
 	public Long getExamID() {
 		return ExamID;

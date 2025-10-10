@@ -16,10 +16,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="examquestions")
@@ -32,24 +36,47 @@ public class ExamQuestionsEntity {
 	@Column(name="Points")
 	private Integer points;
 	@Column(name="Content")
-	private Integer content;
+	private String content;
+	@Column(name="Type")
+	private String type;
 	@Column(name="OrderIndex")
 	private Integer orderIndex;
 	@Column(name="Options")
-	private String options;
+	private String option;
 	@Column(name="CorrectAnswer")
 	private String correctAnswer;
-	@Column(name="Explaination")
-	private String explaination;
+	@Column(name="Explanation")
+	private String explanation;
 	@Column(name="CreatedAt", updatable = false)
 	@CreationTimestamp
 	private LocalDateTime createdAt;
+	@Column(name="UpdatedAt")
+	@UpdateTimestamp
+	private LocalDateTime updatedAt;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ExamID", nullable = false)
+	@JsonBackReference
 	private ExamsEntity exams;
 	@OneToMany(mappedBy = "examTemplateQuestions", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonBackReference
 	private List<ExamAnswerTemplatesEntity> examAnswerTemplate = new ArrayList<>();
 	
+	@Transient
+	private Long templateId;
+	
+	public Long getTemplateId() {
+		return templateId;
+	}
+	public void setTemplateId(Long templateId) {
+		this.templateId = templateId;
+	}
+	
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 	public List<ExamAnswerTemplatesEntity> getExamAnswerTemplate() {
 		return examAnswerTemplate;
 	}
@@ -68,10 +95,17 @@ public class ExamQuestionsEntity {
 	public void setPoints(Integer points) {
 		this.points = points;
 	}
-	public Integer getContent() {
+	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getContent() {
 		return content;
 	}
-	public void setContent(Integer content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 	public Integer getOrderIndex() {
@@ -80,11 +114,12 @@ public class ExamQuestionsEntity {
 	public void setOrderIndex(Integer orderIndex) {
 		this.orderIndex = orderIndex;
 	}
-	public String getOptions() {
-		return options;
+	
+	public String getOption() {
+		return option;
 	}
-	public void setOptions(String options) {
-		this.options = options;
+	public void setOption(String option) {
+		this.option = option;
 	}
 	public String getCorrectAnswer() {
 		return correctAnswer;
@@ -92,11 +127,11 @@ public class ExamQuestionsEntity {
 	public void setCorrectAnswer(String correctAnswer) {
 		this.correctAnswer = correctAnswer;
 	}
-	public String getExplaination() {
-		return explaination;
+	public String getExplanation() {
+		return explanation;
 	}
-	public void setExplaination(String explaination) {
-		this.explaination = explaination;
+	public void setExplanation(String explanation) {
+		this.explanation = explanation;
 	}
 	public LocalDateTime getCreatedAt() {
 		return createdAt;

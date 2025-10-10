@@ -25,6 +25,7 @@ import com.javaweb.repository.ICourseRepository;
 import com.javaweb.repository.impl.CourseRepositoryCustom.CourseRepositoryCustom;
 import com.javaweb.service.FileStorageService;
 import com.javaweb.service.ICourseService;
+import com.javaweb.utils.NullAwareBeanUtils;
 
 @Service
 public class CourseServiceImpl implements ICourseService {
@@ -122,7 +123,7 @@ public class CourseServiceImpl implements ICourseService {
 
         try {
             String videoUrl = fileStorageService.saveFile(video);
-            course.setImageUrl(videoUrl); // set URL trước khi save
+            course.setVideoUrl(videoUrl); // set URL trước khi save
             courseRepository.save(course);
             return ResponseEntity.ok(Map.of("status", "success", "message", "Course image uploaded", "videoUrl", videoUrl));
         } catch (IOException e) {
@@ -195,6 +196,30 @@ public class CourseServiceImpl implements ICourseService {
 		Map<String,Object> courseEntity = courseRepositoryCustom.getCoursePreview(courseID);
 		if(courseEntity != null) {
 			return ResponseEntity.ok().body(courseEntity);
+		} else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", HttpStatus.INTERNAL_SERVER_ERROR.value()));
+		}
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<Object> updatePublished(Long courseId) {
+		CourseEntity course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException("not found course"));
+		try {
+			course.setPublished(true);
+			course.setStatus("published");
+			courseRepository.save(course);
+			return ResponseEntity.ok(HttpStatus.OK);
+		} catch(Exception e) {
+			throw new RuntimeException(e + " Can not add published from course");
+		}
+	}
+
+	@Override
+	public ResponseEntity<Object> getCourseEditPreview(Long courseId) {
+		Map<String,Object> courseEntity = courseRepositoryCustom.getCoursePreview(courseId);
+		if(courseEntity != null) {
+			return ResponseEntity.ok().body(Map.of("data", courseEntity));
 		} else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", HttpStatus.INTERNAL_SERVER_ERROR.value()));
 		}

@@ -23,13 +23,13 @@ public class CourseRepositoryImpl implements CourseRepositoryCustom {
 	//Lấy tất cả các khóa học
 	@Override
 	public List<Map<String, Object>> getAllCourse() {
-	    String sql = "select CourseID, Title, Category, Level, Price, Status from courses where 1=1";
+	    String sql = "select CourseID, Title, Category, Level, Price, Status, IsPublished from courses where 1=1";
 	    Query qr = entityManager.createNativeQuery(sql);
 
 	    List<Object[]> results = qr.getResultList();
 	    List<Map<String, Object>> mappedResults = new ArrayList<>();
 
-	    List<String> columns = List.of("CourseID", "Title", "Category", "Level", "Price", "Status");
+	    List<String> columns = List.of("CourseID", "Title", "Category", "Level", "Price", "Status", "IsPublished");
 
 	    for (Object[] row : results) {
 	        Map<String, Object> map = new HashMap<>();
@@ -48,7 +48,7 @@ public class CourseRepositoryImpl implements CourseRepositoryCustom {
 	public Map<String, Object> getCoursePreview(Long courseId) {
 	    String str = "SELECT CourseID, Title, Description, Level, Category, Language, Duration, " +
 	                 "Capacity, Price, DiscountPrice, Requirements, Objectives, CreatedAt, " +
-	                 "UpdatedAt, Syllabus, ImageUrl, VideoUrl " +
+	                 "UpdatedAt, Syllabus, ImageUrl, VideoUrl, IsPublished " +
 	                 "FROM courses WHERE CourseID = :courseId";
 	                 
 	    Query qr = entityManager.createNativeQuery(str);

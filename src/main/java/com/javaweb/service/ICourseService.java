@@ -17,5 +17,7 @@ public interface ICourseService {
     ResponseEntity<Object> uploadModuleImage(Long moduleId, MultipartFile image);
     ResponseEntity<Object> getAllCourse();
     ResponseEntity<Object> getCoursePreview(Long courseId);
+    ResponseEntity<Object> updatePublished(Long courseId);
+    ResponseEntity<Object> getCourseEditPreview(Long courseId);
   
 }

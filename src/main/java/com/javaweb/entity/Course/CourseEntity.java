@@ -23,6 +23,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 //import com.javaweb.entity.CourseModule.CourseModuleEntity;
 import com.javaweb.entity.exams.ExamsEntity;
 /*@NamedStoredProcedureQuery(
@@ -37,6 +39,7 @@ import com.javaweb.entity.exams.ExamsEntity;
 public class CourseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="CourseID")
 	private Long CourseID;
 	@Column(name="Title")
 	private String title;
@@ -52,7 +55,7 @@ public class CourseEntity {
 	private Integer duration;
 	@Column(name="Capacity")
 	private Integer capacity;
-	@Column(name="price")
+	@Column(name="Price")
 	private Double price;
 	@Column(name="DiscountPrice")
 	private Double discountPrice;
@@ -68,6 +71,11 @@ public class CourseEntity {
 	private String imageUrl;
 	@Column(name="VideoUrl")
 	private String videoUrl;
+	@Column(name="IsPublished")
+	private boolean isPublished;
+	@Column(name="PublishedAt")
+	@UpdateTimestamp
+	private LocalDateTime publishedAt;
 	//@CreationTimestamp
 	//@Column(name="CreatedAt")
 	//private LocalDateTime createdAt;
@@ -79,6 +87,19 @@ public class CourseEntity {
 	@OneToMany(mappedBy = "courseExams", cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
 	private List<ExamsEntity> exams = new ArrayList<>();
 	
+	
+	public boolean isPublished() {
+		return isPublished;
+	}
+	public void setPublished(boolean isPublished) {
+		this.isPublished = isPublished;
+	}
+	public LocalDateTime getPublishedAt() {
+		return publishedAt;
+	}
+	public void setPublishedAt(LocalDateTime publishedAt) {
+		this.publishedAt = publishedAt;
+	}
 	public Long getCourseID() {
 		return CourseID;
 	}

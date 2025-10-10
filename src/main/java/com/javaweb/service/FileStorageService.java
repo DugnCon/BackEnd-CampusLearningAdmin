@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 public class FileStorageService {
 
     // Đường dẫn tuyệt đối
-    private final String uploadDir = "C:/Users/Admin/OneDrive/Hình ảnh/image";
+    private final String uploadDir = "C:/Esclipe_Web/campuslearning-addmin/uploads";
 
     public String saveFile(MultipartFile file) throws IOException {
         if (file == null || file.isEmpty()) return null;

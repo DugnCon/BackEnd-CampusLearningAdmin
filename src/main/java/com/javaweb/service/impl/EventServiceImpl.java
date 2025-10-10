@@ -176,11 +176,16 @@ public class EventServiceImpl implements IEventService{
 	}
 
 	@Override
+	@Transactional
 	public ResponseEntity<Object> deleteEvent(Long eventId) {
-		EventEntity eventEntity = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("Not found"));
-		eventEntity.setEventID(eventId);
-		eventRepository.delete(eventEntity);
-		return ResponseEntity.ok(Map.of("status", "Successfully deleted event!"));
+		//EventEntity eventEntity = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("Not found"));
+		//eventEntity.setEventID(eventId);
+		try {
+			eventRepository.deleteById(eventId);
+			return ResponseEntity.ok(Map.of("status", "Successfully deleted event!"));
+		} catch (Exception e) {
+			throw new RuntimeException(e + "can not delete event");
+		}
 	}
 
 	@Override

@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="examanswertemplates")
 @EntityListeners(AuditingEntityListener.class)
@@ -27,9 +29,11 @@ public class ExamAnswerTemplatesEntity {
 	private Long TemplateID;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ExamID")
+	@JsonBackReference
 	private ExamsEntity examTemplates;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="QuestionID")
+	@JsonBackReference
 	private ExamQuestionsEntity examTemplateQuestions;
 	@Column(name="Content")
 	private String content;
@@ -40,6 +44,8 @@ public class ExamAnswerTemplatesEntity {
 	@Column(name="CreatedAt", updatable = false)
 	@CreationTimestamp
 	private LocalDateTime createdAt;
+	
+	
 	public Long getTemplateID() {
 		return TemplateID;
 	}

@@ -57,11 +57,7 @@ public class AdminAPI {
 	    	                         .body(Map.of("loggedIn", false, "message", "Token expired"));
 	    	}
 	        // Lấy claims từ token
-	        Claims claims = Jwts.parserBuilder()
-	                .setSigningKey(jwtService.getKey())
-	                .build()
-	                .parseClaimsJws(token)
-	                .getBody();
+	        Claims claims = jwtService.extractAllClaims(token);
 
 	        return ResponseEntity.ok(Map.of(
 	            "loggedIn", true,

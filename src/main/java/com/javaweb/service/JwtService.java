@@ -17,7 +17,7 @@ import io.jsonwebtoken.security.Keys;
 public class JwtService {
     //Chuỗi bí mật dùng để ký token
 	//Độ dài HS256 >= 32 bytes
-    private static final String SECRET_KEY = "my-super-secret-key-123456-my-super-secret-key-123456"; 
+    private static final String SECRET_KEY = "Igf4IQ6BKCNvbT9fehqgHP1gpJZ2Bx1Qm4F6ZAUXEgQTcJTBKukpvYfpKL/0GQZv"; 
     private final SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
     //Thời hạn access token
     private final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 giờ
@@ -69,7 +69,7 @@ public class JwtService {
     }
     //parse tọken -> kiểm tra chữ ký và trả về claims -> trả về cho FE check token
     //Jws<Claims> -> claims được trữ bởi Jws
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts.parserBuilder() //Cấu hình và giải mã JWT khi muốn lấy các claims
                 .setSigningKey(key) //Muốn lấy claims phải cung cấp key để xác minh
                 .build() //Set up xong thì cần build ra thì mới lấy được các đoói tượng

@@ -56,6 +56,11 @@ public class CourseAPI {
     	return courseService.getCoursePreview(courseId);
     }
     
+    /*@GetMapping("/courses/{courseId}/edit")
+    public ResponseEntity<Object> getCourseEditPreview(@PathVariable Long courseId) {
+    	return courseService.getCourseEditPreview(courseId);
+    }*/
+    
     //Xem truoc module khoa hoc
     @GetMapping("/courses/{courseId}/modules")
     public ResponseEntity<Object> getCourseModulePreview(@PathVariable Long courseId) {
@@ -163,5 +168,10 @@ public class CourseAPI {
     @PutMapping("/courses/{courseId}/modules/{moduleId}/lessons/{lessonId}")
     public ResponseEntity<Object> updateModuleLesson(@PathVariable Long courseId, @PathVariable Long moduleId , @PathVariable Long lessonId, @RequestBody CourseLessonsDTO courseLessonsDTO) {
     	return courseLessonService.updateCourseLesson(lessonId, courseLessonsDTO);
+    }
+    
+    @PostMapping("/courses/{courseId}/publish")
+    public ResponseEntity<Object> updatePulished(@PathVariable Long courseId) {
+    	return courseService.updatePublished(courseId);
     }
 }

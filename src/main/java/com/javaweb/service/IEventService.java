@@ -23,8 +23,8 @@ public interface IEventService {
 	ResponseEntity<Object> addEventTechnologies(Long eventId,EventTechnologiesDTO eventTechnologiesDTO);
 	ResponseEntity<Object> addEventSchedule(Long eventId,EventScheduleDTO eventScheduleDTO);
 	ResponseEntity<Object> addEventPrizes(Long eventId,EventPrizesDTO eventPrizesDTO);
-	ResponseEntity<Object> updateEvent(Long eventId,EventDTO eventDTO);
 	ResponseEntity<Object> deleteEvent(Long eventId);
 	ResponseEntity<Object> deleteEventSchedule(Long scheduleId);
 	ResponseEntity<Object> updateEventStatus(Long eventId, EventDTO eventDTO);
+	ResponseEntity<Object> updateEvent(Long eventId,EventDTO eventDTO);
 }
