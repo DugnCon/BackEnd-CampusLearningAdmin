@@ -9,12 +9,14 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+@EnableAsync
 public class SpringBootWebApplicationAdmin extends SpringBootServletInitializer {
 //    private static final String dateFormat = "yyyy-MM-dd";
 //    private static final String dateTimeFormat = "yyyy-MM-dd HH:mm:ss.SSS";

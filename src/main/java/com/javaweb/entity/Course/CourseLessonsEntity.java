@@ -1,7 +1,10 @@
 package com.javaweb.entity.Course;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -11,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,6 +22,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.javaweb.entity.coding.CodingExercisesEntity;
 @Entity
 @Table(name="courselessons")
 @DynamicUpdate
@@ -28,7 +34,8 @@ public class CourseLessonsEntity {
 	private Long LessonID;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="ModuleID")
-	private CourseModuleEntity coursemodules;
+	@JsonBackReference
+	private CourseModuleEntity modules;
 	@Column(name="Title")
 	private String title;
 	@Column(name="Description")
@@ -51,7 +58,17 @@ public class CourseLessonsEntity {
 	@Column(name="UpdatedAt")
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
+	@OneToMany(mappedBy="lessons", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonBackReference
+	private List<CodingExercisesEntity> coding = new ArrayList<>();
 	
+	@JsonBackReference
+	public List<CodingExercisesEntity> getCoding() {
+		return coding;
+	}
+	public void setCoding(List<CodingExercisesEntity> coding) {
+		this.coding = coding;
+	}
 	public String getVideoUrl() {
 		return videoUrl;
 	}
@@ -65,14 +82,16 @@ public class CourseLessonsEntity {
 		LessonID = lessonID;
 	}
 	
-	public CourseModuleEntity getCoursemodules() {
-		return coursemodules;
-	}
-	public void setCoursemodules(CourseModuleEntity coursemodules) {
-		this.coursemodules = coursemodules;
-	}
 	public String getTitle() {
 		return title;
+	}
+	
+	@JsonBackReference
+	public CourseModuleEntity getModules() {
+		return modules;
+	}
+	public void setModules(CourseModuleEntity modules) {
+		this.modules = modules;
 	}
 	public void setTitle(String title) {
 		this.title = title;

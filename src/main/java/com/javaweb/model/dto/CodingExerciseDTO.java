@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class CodingExerciseDTO {
+	private Long lessonId;
 	private String title;
 	private String description;
 	private String programmingLanguage;
@@ -15,6 +16,13 @@ public class CodingExerciseDTO {
 	private Integer timeLimit;
 	private Integer memoryLimit;
 	private String difficulty;
+	
+	public Long getLessonId() {
+		return lessonId;
+	}
+	public void setLessonId(Long lessonId) {
+		this.lessonId = lessonId;
+	}
 	public String getTitle() {
 		return title;
 	}

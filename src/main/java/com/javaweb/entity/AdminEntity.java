@@ -10,19 +10,19 @@ import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 
-@NamedStoredProcedureQuery (
+/*@NamedStoredProcedureQuery (
 		name = "AdminEntity.adminLogin",
 		procedureName = "admin_login",
 		parameters = {
 			@StoredProcedureParameter(mode = ParameterMode.IN, name = "u_identifier", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.OUT, name = "u_id", type = String.class),
+			@StoredProcedureParameter(mode = ParameterMode.OUT, name = "u_id", type = Long.class),
 			@StoredProcedureParameter(mode = ParameterMode.OUT, name = "u_username_", type = String.class),
 			@StoredProcedureParameter(mode = ParameterMode.OUT, name = "u_email_", type = String.class),
 			@StoredProcedureParameter(mode = ParameterMode.OUT, name = "u_password", type = String.class),
 			@StoredProcedureParameter(mode = ParameterMode.OUT, name = "u_role", type = String.class),
 			@StoredProcedureParameter(mode = ParameterMode.OUT, name = "u_result", type = String.class)
 		}
-)
+)*/
 @Entity
 @Table(name="users")
 public class AdminEntity {

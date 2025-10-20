@@ -1,12 +1,11 @@
 package com.javaweb.repository;
 
-import java.util.List;
-
+import com.javaweb.entity.Course.CourseLessonsEntity;
+import com.javaweb.entity.Course.CourseModuleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.javaweb.entity.Course.CourseLessonsEntity;
-import com.javaweb.entity.Course.CourseModuleEntity;
+import java.util.List;
 
 public interface ICourseModuleRepository extends JpaRepository<CourseModuleEntity, Long>{
 	/**
@@ -18,6 +17,6 @@ public interface ICourseModuleRepository extends JpaRepository<CourseModuleEntit
        "WHERE c.id = :courseId")
 		CourseEntity findCourseWithModulesAndLessons(@Param("courseId") Long courseId);
 	 * **/
-	@Query("select cm from CourseModuleEntity cm join fetch cm.courselessons")
+	@Query("select cm from CourseModuleEntity cm join fetch cm.lessons")
 	List<CourseLessonsEntity> getAllCourseLessons();
 }

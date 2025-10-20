@@ -68,7 +68,12 @@ public class CourseModuleServiceEdit implements ICourseModuleServiceEdit{
 	public ResponseEntity<Object> getCoureModule(Long courseId) {
 		//List<CourseModuleEntity> courseModuleEntity = courseModuleRepository.findByCourseID(courseId);
 		//return ResponseEntity.ok(courseModuleEntity);
-		return ResponseEntity.ok(courseModuleRepositoryCustom.getCourseModule(courseId));
+		return ResponseEntity.ok(Map.of("modules", courseModuleRepositoryCustom.getCourseModule(courseId)));
+	}
+
+	@Override
+	public ResponseEntity<Object> getCoureModulePreview(Long moduleId) {
+		return ResponseEntity.ok(courseModuleRepositoryCustom.getCourseModulePreview(moduleId).get(0));
 	}
 
 }

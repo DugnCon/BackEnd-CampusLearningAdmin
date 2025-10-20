@@ -76,4 +76,18 @@ public class CourseRepositoryImpl implements CourseRepositoryCustom {
 	    qr.setParameter("courseId", courseId);
 		return qr.getResultList();
 	}
+
+	@Override
+	public List<Map<String, Object>> getCourseModulePreview(Long moduleId) {
+		String sql = "select ModuleID, Title, Description, VideoUrl,"
+				+ " ImageUrl, OrderIndex, Duration, CreatedAt, UpdatedAt"
+				+ " from coursemodules where ModuleID = :moduleId";
+		
+		Query qr = entityManager.createNativeQuery(sql)
+	            .unwrap(org.hibernate.query.NativeQuery.class)
+	            .setResultTransformer(org.hibernate.transform.AliasToEntityMapResultTransformer.INSTANCE);
+
+	    qr.setParameter("moduleId", moduleId);
+		return qr.getResultList();
+	}
 }

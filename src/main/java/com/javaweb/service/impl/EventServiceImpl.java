@@ -1,36 +1,21 @@
 package com.javaweb.service.impl;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
-
+import com.javaweb.entity.event.*;
+import com.javaweb.model.dto.*;
+import com.javaweb.repository.*;
+import com.javaweb.repository.impl.EventRepositoryCustom.EventRepositoryCustom;
+import com.javaweb.service.FileStorageService;
+import com.javaweb.service.IEventService;
+import com.javaweb.utils.MapUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.javaweb.entity.event.EventEntity;
-import com.javaweb.entity.event.EventPrizesEntity;
-import com.javaweb.entity.event.EventProgrammingLanguagesEntity;
-import com.javaweb.entity.event.EventScheduleEntity;
-import com.javaweb.entity.event.EventTechnologiesEntity;
-import com.javaweb.model.dto.EventDTO;
-import com.javaweb.model.dto.EventLanguagesDTO;
-import com.javaweb.model.dto.EventPrizesDTO;
-import com.javaweb.model.dto.EventScheduleDTO;
-import com.javaweb.model.dto.EventTechnologiesDTO;
-import com.javaweb.repository.IEventParticipantsRepository;
-import com.javaweb.repository.IEventPrizesRepository;
-import com.javaweb.repository.IEventProgrammingLanguagesRepository;
-import com.javaweb.repository.IEventRepository;
-import com.javaweb.repository.IEventScheduleRepository;
-import com.javaweb.repository.IEventTechnologiesRepository;
-import com.javaweb.repository.impl.EventRepositoryCustom.EventRepositoryCustom;
-import com.javaweb.service.IEventService;
-import com.javaweb.utils.MapUtils;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class EventServiceImpl implements IEventService{
@@ -50,6 +35,8 @@ public class EventServiceImpl implements IEventService{
 	private ModelMapper modelMapper;
 	@Autowired
 	private EventRepositoryCustom eventRepositoryCustom;
+	@Autowired
+	private FileStorageService fileStorageService;
 	//Tìm tất cả các event
 	@Override
 	@Transactional

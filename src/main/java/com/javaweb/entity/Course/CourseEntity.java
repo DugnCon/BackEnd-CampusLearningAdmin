@@ -25,6 +25,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 //import com.javaweb.entity.CourseModule.CourseModuleEntity;
 import com.javaweb.entity.exams.ExamsEntity;
 /*@NamedStoredProcedureQuery(
@@ -83,8 +84,10 @@ public class CourseEntity {
 	@Column(name="UpdatedAt")
 	private LocalDateTime updatedAt;
 	@OneToMany(mappedBy = "courses", cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
-	private List<CourseModuleEntity> coursemodules = new ArrayList<>();
+	@JsonManagedReference
+	private List<CourseModuleEntity> modules = new ArrayList<>();
 	@OneToMany(mappedBy = "courseExams", cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<ExamsEntity> exams = new ArrayList<>();
 	
 	
@@ -179,11 +182,12 @@ public class CourseEntity {
 	public void setSyllabus(String syllabus) {
 		this.syllabus = syllabus;
 	}
-	public List<CourseModuleEntity> getCoursemodules() {
-		return coursemodules;
+	
+	public List<CourseModuleEntity> getModules() {
+		return modules;
 	}
-	public void setCoursemodules(List<CourseModuleEntity> coursemodules) {
-		this.coursemodules = coursemodules;
+	public void setModules(List<CourseModuleEntity> modules) {
+		this.modules = modules;
 	}
 	public Double getPrice() {
 		return price;
@@ -209,7 +213,8 @@ public class CourseEntity {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
+	
+	@JsonBackReference
     public List<ExamsEntity> getExams() {
         return exams;
     }

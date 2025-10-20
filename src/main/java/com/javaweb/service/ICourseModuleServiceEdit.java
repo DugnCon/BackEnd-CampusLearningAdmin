@@ -10,5 +10,5 @@ public interface ICourseModuleServiceEdit {
 	ResponseEntity<Object> updateCoureModule(CourseModuleBuilder courseModuleBuilder, Long courseId, Long moduleId);
 	ResponseEntity<Object> deleteCoureModule(Long courseId, Long moduleId);
 	ResponseEntity<Object> getCoureModule(Long courseId);
-	
+	ResponseEntity<Object> getCoureModulePreview(Long moduleId);
 }

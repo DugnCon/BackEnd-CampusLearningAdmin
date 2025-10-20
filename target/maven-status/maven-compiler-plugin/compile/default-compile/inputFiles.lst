@@ -3,7 +3,6 @@ C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\api\course\Course
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\api\user\UserAPI.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\security\CustomSuccessHandler.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\IExamsRepository.java
-C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\impl\ICourseLessonsRepository.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\entity\exams\ExamsEntity.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\impl\RepositoryImpl\AdminLoginImpl.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\config\JpaAuditingConfig.java
@@ -106,5 +105,6 @@ C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\utils\ObjectConfi
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\entity\Course\CourseEntity.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\utils\MapUtils.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\service\impl\CourseModuleServiceEdit.java
+C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\ICourseLessonsRepository.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\impl\RepositoryImpl\EventRepositoryImpl.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\IEventScheduleRepository.java

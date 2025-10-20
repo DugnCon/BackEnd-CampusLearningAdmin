@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 public class ExamsDTO {
 	private Long ExamID;
 	private Long courseId;
+	private Long moduleId;
+	private Long lessonId;
 	private String courseTitle;
 	private String title;
 	private String description;
@@ -27,6 +29,23 @@ public class ExamsDTO {
 	private boolean shuffleQuestions;
 	private boolean allowRetakes;
 	private Integer maxRetakes;
+	
+
+	public Long getModuleId() {
+		return moduleId;
+	}
+
+	public void setModuleId(Long moduleId) {
+		this.moduleId = moduleId;
+	}
+
+	public Long getLessonId() {
+		return lessonId;
+	}
+
+	public void setLessonId(Long lessonId) {
+		this.lessonId = lessonId;
+	}
 
 	public boolean isAllowRetakes() {
 		return allowRetakes;

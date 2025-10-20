@@ -2,6 +2,8 @@ package com.javaweb.service.impl;
 
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,7 @@ import com.javaweb.entity.Course.CourseLessonsEntity;
 import com.javaweb.entity.Course.CourseModuleEntity;
 import com.javaweb.model.dto.CourseLessonsDTO;
 import com.javaweb.repository.ICourseModuleRepository;
-import com.javaweb.repository.impl.ICourseLessonsRepository;
+import com.javaweb.repository.ICourseLessonsRepository;
 import com.javaweb.repository.impl.CourseRepositoryEditCustom.CourseLessonRepositoryCustom;
 import com.javaweb.service.ICourseLessonService;
 import com.javaweb.utils.MapUtils;
@@ -26,21 +28,22 @@ public class CourseLessonsServiceImpl implements ICourseLessonService{
 	@Autowired
 	private ModelMapper modelMapper;
 	@Override
+	@Transactional
 	public ResponseEntity<Object> insertCourseLesson(Long moduleId,CourseLessonsDTO courseLessonsDTO) {
 		CourseModuleEntity courseModuleEntity = courseModuleRepository.findById(moduleId)
 				.orElseThrow(() -> new RuntimeException("Not found"));
 		CourseLessonsEntity courseLessonsEntity = modelMapper.map(courseLessonsDTO, CourseLessonsEntity.class);
-		courseLessonsEntity.setCoursemodules(courseModuleEntity);
+		courseLessonsEntity.setModules(courseModuleEntity);
 		courseLessonsRepository.save(courseLessonsEntity);
-		return ResponseEntity.ok(Map.of("status", "Successfully added lesson!"));
+		return ResponseEntity.ok(Map.of("status", "Successfully added lesson!", "LessonID", courseLessonsEntity.getLessonID()));
 	}
 	@Override
 	public ResponseEntity<Object> getAllCourseLesson(Long moduleId) {
-		return ResponseEntity.ok(courseLessonCustom.getAllCourseLesson(moduleId));
+		return ResponseEntity.ok(Map.of("lessons", courseLessonCustom.getAllCourseLesson(moduleId)));
 	}
 	@Override
 	public CourseLessonsEntity getSingleCourseLesson(Long lessonId) {
-		return courseLessonCustom.getSingleCourseLesson(lessonId);
+		return courseLessonsRepository.getCourseLessonPreview(lessonId);
 	}
 	@Override
 	public ResponseEntity<Object> deleteCourseLesson(Long lessonId) {

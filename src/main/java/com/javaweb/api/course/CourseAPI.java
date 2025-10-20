@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,6 +12,7 @@ import com.javaweb.builder.CourseBuilder;
 import com.javaweb.builder.CourseModuleBuilder;
 import com.javaweb.converter.CourseConverter;
 import com.javaweb.converter.CourseModuleConverter;
+import com.javaweb.entity.Course.CourseLessonsEntity;
 import com.javaweb.model.dto.CourseDTO;
 import com.javaweb.model.dto.CourseLessonsDTO;
 import com.javaweb.model.dto.CourseModuleDTO;
@@ -67,6 +69,11 @@ public class CourseAPI {
     	return courseModuleServiceEdit.getCoureModule(courseId);
     }
     
+    @GetMapping("/modules/{moduleId}/lessons") 
+    public ResponseEntity<Object> getCourseLessonsPreview(@PathVariable Long moduleId) {
+    	return courseLessonService.getAllCourseLesson(moduleId);
+    }
+    
     //edit khóa học
     @PutMapping("/courses/{courseId}")
     public ResponseEntity<Object> updateCourse(@PathVariable Long courseId,@RequestBody Map<String,Object> courseData) {
@@ -78,7 +85,7 @@ public class CourseAPI {
     //Xem chi tiêts module
     @GetMapping("/courses/{courseId}/modules/{moduleId}")
     public ResponseEntity<Object> getCourseInPreview(@PathVariable Long courseId, @PathVariable Long moduleId) {
-    	return courseModuleServiceEdit.getCoureModule(courseId);
+    	return courseModuleServiceEdit.getCoureModulePreview(moduleId);
     }
     
     //edit module cuả khóa học
@@ -90,6 +97,7 @@ public class CourseAPI {
 
     // upload ảnh khóa học
     @PostMapping("/courses/{courseId}/image")
+    @Async
     public ResponseEntity<Object> uploadCourseImage(
             @PathVariable Long courseId,
             @RequestParam("image") MultipartFile image) {
@@ -98,6 +106,7 @@ public class CourseAPI {
 
     // upload video khóa học
     @PostMapping("/courses/{courseId}/video")
+    @Async
     public ResponseEntity<Object> uploadCourseVideo(
             @PathVariable Long courseId,
             @RequestParam("video") MultipartFile video) {
@@ -114,6 +123,7 @@ public class CourseAPI {
 
     //upload video cho module
     @PostMapping("/modules/{moduleId}/video-url")
+    @Async
     public ResponseEntity<Object> uploadModuleVideoUrl(
             @PathVariable Long moduleId,
             @RequestBody CourseModuleDTO moduleDTO) {
@@ -122,6 +132,7 @@ public class CourseAPI {
 
     // upload ảnh cho module
     @PostMapping("/modules/{moduleId}/image")
+    @Async
     public ResponseEntity<Object> uploadModuleImage(
             @PathVariable Long moduleId,
             @RequestParam("image") MultipartFile image) {
@@ -154,8 +165,8 @@ public class CourseAPI {
     
   //Đưa dữ liệu Lesson
     @GetMapping("/courses/{courseId}/modules/{moduleId}/lessons/{lessonId}")
-    public ResponseEntity<Object> getPreviewCourseLesson(@PathVariable Long courseId, @PathVariable Long moduleId, @PathVariable Long lessonId) {
-    	return courseLessonService.getAllCourseLesson(moduleId);
+    public CourseLessonsEntity getPreviewCourseLesson(@PathVariable Long courseId, @PathVariable Long moduleId, @PathVariable Long lessonId) {
+    	return courseLessonService.getSingleCourseLesson(lessonId);
     }
     
     //Xóa lesson

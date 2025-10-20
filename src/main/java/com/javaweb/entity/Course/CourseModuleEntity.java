@@ -17,6 +17,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 //ManyToOne
 @Entity
 @Table(name="coursemodules")
@@ -41,9 +44,11 @@ public class CourseModuleEntity {
 	private Integer duration;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="CourseID")
+	@JsonBackReference
 	private CourseEntity courses;
-	@OneToMany(mappedBy = "coursemodules", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<CourseLessonsEntity> courselessons = new ArrayList<>();
+	@OneToMany(mappedBy = "modules", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<CourseLessonsEntity> lessons = new ArrayList<>();
 	public Integer getOrderIndex() {
 		return orderIndex;
 	}
@@ -92,10 +97,19 @@ public class CourseModuleEntity {
 	public void setVideoUrl(String videoUrl) {
 		this.videoUrl = videoUrl;
 	}
+	
+	@JsonBackReference
 	public CourseEntity getCourses() {
 		return courses;
 	}
 	public void setCourses(CourseEntity courses) {
 		this.courses = courses;
 	}
+	public List<CourseLessonsEntity> getLessons() {
+		return lessons;
+	}
+	public void setLessons(List<CourseLessonsEntity> lessons) {
+		this.lessons = lessons;
+	}
+	
 }

@@ -18,12 +18,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.javaweb.entity.Course.CourseEntity;
+import com.javaweb.entity.Course.CourseLessonsEntity;
 import com.javaweb.entity.coding.CodingExercisesEntity;
 import com.javaweb.entity.exams.ExamsEntity;
 import com.javaweb.model.dto.CodingExerciseDTO;
 import com.javaweb.model.dto.EssayDataDTO;
 import com.javaweb.model.dto.ExamsDTO;
 import com.javaweb.repository.ICodingExercisesRepository;
+import com.javaweb.repository.ICourseLessonsRepository;
 import com.javaweb.repository.ICourseRepository;
 import com.javaweb.repository.IExamAnswerTemplatesRepository;
 import com.javaweb.repository.IExamsRepository;
@@ -33,6 +35,8 @@ import com.javaweb.utils.MapUtils;
 public class ExamsServiceImpl implements IExamsService{
 	@Autowired
 	private IExamQuestionsRepository examQuestionsRepository;
+	@Autowired
+	private ICourseLessonsRepository courseLessonsRepository;
 	//Thêm bài kiểm tra 
 	@Autowired
 	private ICourseRepository courseRepository;
@@ -53,9 +57,25 @@ public class ExamsServiceImpl implements IExamsService{
 			ExamsEntity examsEntity = modelMapper.map(examsDTO, ExamsEntity.class);
 			examsEntity.setCourseExams(courseEntity);
 			examsRepository.save(examsEntity);
-			return ResponseEntity.ok(Map.of("examId", examsEntity.getExamID()));
+			return ResponseEntity.ok(Map.of("examId", examsEntity.getExamID(), "lessonId", examsDTO.getLessonId()));
 		}catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", e.getStackTrace()));
+		}
+	}
+	@Override
+	@Transactional
+	public ResponseEntity<Object> insertCodingExams(Long examId, Long questionId, CodingExerciseDTO codingExerciseDTO) {
+		try {
+			
+			CourseLessonsEntity courseLesson = courseLessonsRepository.findById(codingExerciseDTO.getLessonId()).orElseThrow(() -> new RuntimeException("not found lesson"));
+			
+			CodingExercisesEntity codingExercise = modelMapper.map(codingExerciseDTO, CodingExercisesEntity.class);
+			codingExercise.setLessons(courseLesson);
+			
+			codingExercisesRepository.save(codingExercise);
+			return ResponseEntity.ok(HttpStatus.OK);
+		} catch(Exception e) {
+			throw new RuntimeException(e + " Can not insert coding exercise");
 		}
 	}
 	@Override
@@ -147,17 +167,6 @@ public class ExamsServiceImpl implements IExamsService{
 			return examAnswerTemplateRepository.getExamAnswerTemplate(questionId);
 		} catch (Exception e) {
 			throw new RuntimeException(e + "Can not get exam answer template");
-		}
-	}
-	@Override
-	@Transactional
-	public ResponseEntity<Object> insertCodingExams(Long examId, Long questionId, CodingExerciseDTO codingExerciseDTO) {
-		try {
-			CodingExercisesEntity codingExercise = modelMapper.map(codingExerciseDTO, CodingExercisesEntity.class);
-			codingExercisesRepository.save(codingExercise);
-			return ResponseEntity.ok(HttpStatus.OK);
-		} catch(Exception e) {
-			throw new RuntimeException(e + " Can not insert coding exercise");
 		}
 	}
 	//Lấy 1 entity question

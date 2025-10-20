@@ -20,10 +20,12 @@ public interface IExamsService {
 	List<ExamQuestionsEntity> getExamQuestions(Long examId);
 	ExamQuestionsEntity getSingleExamQuestions(Long questionId);
 	List<ExamAnswerTemplatesEntity> getExamAnswerTemplate(Long questionId);
+	
 	ResponseEntity<Object> insertExams(ExamsDTO examsDTO);
 	ResponseEntity<Object> insertMultipleExams(Long examId,TypeOfExamsDTO typeOfExamsDTO);
 	ResponseEntity<Object> insertEssayExams(Long examId, Long questionId, EssayDataDTO essayDataDTO);
 	ResponseEntity<Object> insertCodingExams(Long examId, Long questionId, CodingExerciseDTO codingExerciseDTO);
+	
 	ResponseEntity<Object> updateExams(Long examId, ExamsDTO examsDTO);
 	ResponseEntity<Object> updateEssayQuestion(Long templateId, EssayDataDTO essayDataDTO);
 	ResponseEntity<Object> deleteExams(Long examId);

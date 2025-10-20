@@ -1,25 +1,17 @@
 package com.javaweb.api.admin;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.javaweb.model.dto.AdminDTO;
 import com.javaweb.service.IAdminServiceLogin;
 import com.javaweb.service.JwtService;
-
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -38,6 +30,7 @@ public class AdminAPI {
 	public ResponseEntity<Object> adminLogout() {
 		return null;
 	}
+	
 	//Chỉ cần check sign của jwt mà không cần query
 	@GetMapping("/auth/session")
 	public ResponseEntity<Object> checkSession(HttpServletRequest request) {
