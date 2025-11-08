@@ -1,14 +1,15 @@
 package com.javaweb.entity.competitions;
 
-import java.time.LocalDateTime;
-import javax.persistence.*;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "competitionproblems")
@@ -87,8 +88,20 @@ public class CompetitionProblemEntity {
     @Column(name = "Instructions", columnDefinition = "TEXT")
     private String instructions;
 
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<CompetitionSubmissionEntity> submission = new ArrayList<>();
+
     // ===== Getters & Setters =====
-    
+
+    @JsonBackReference
+    public List<CompetitionSubmissionEntity> getSubmission() {
+        return submission;
+    }
+
+    public void setSubmission(List<CompetitionSubmissionEntity> submission) {
+        this.submission = submission;
+    }
 
     public CompetitionEntity getCompetition() {
         return competition;

@@ -1,25 +1,23 @@
 package com.javaweb.service.impl;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.management.relation.RelationService;
-import javax.transaction.Transactional;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
 import com.javaweb.entity.competitions.CompetitionEntity;
 import com.javaweb.entity.competitions.CompetitionProblemEntity;
 import com.javaweb.model.dto.CompetitionDTO;
 import com.javaweb.model.dto.CompetitionProblemDTO;
 import com.javaweb.repository.ICompetitionProblemRepository;
 import com.javaweb.repository.ICompetitionRepository;
+import com.javaweb.service.FileStorageService;
 import com.javaweb.service.ICompetitionService;
 import com.javaweb.utils.NullAwareBeanUtils;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Map;
 @Service
 public class CompetitionServiceImpl implements ICompetitionService{
 	@Autowired
@@ -28,6 +26,8 @@ public class CompetitionServiceImpl implements ICompetitionService{
 	private ICompetitionProblemRepository problemRepository;
 	@Autowired
 	private ModelMapper modelMapper;
+	@Autowired
+	private FileStorageService fileStorageService;
 	@Override
 	public List<CompetitionEntity> getAllCompetition() {
 		return competitionRepository.getAllCompetition();

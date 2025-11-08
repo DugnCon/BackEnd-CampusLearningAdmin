@@ -1,21 +1,22 @@
 package com.javaweb.api.competitions;
 
-import java.util.List;
-import java.util.Map;
-
+import com.javaweb.model.dto.CompetitionDTO;
+import com.javaweb.model.dto.CompetitionProblemDTO;
+import com.javaweb.service.FileStorageService;
+import com.javaweb.service.ICompetitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.javaweb.entity.competitions.CompetitionEntity;
-import com.javaweb.entity.competitions.CompetitionProblemEntity;
-import com.javaweb.model.dto.CompetitionDTO;
-import com.javaweb.model.dto.CompetitionProblemDTO;
-import com.javaweb.service.ICompetitionService;
+import java.io.IOException;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
 public class CompetitionAPI {
+    @Autowired
+    private FileStorageService fileStorageService;
 	@Autowired
 	private ICompetitionService competitionService;
     // ===== GET =====
@@ -66,6 +67,11 @@ public class CompetitionAPI {
     @PostMapping("/competitions")
     public ResponseEntity<Object> createCompetition(@RequestBody CompetitionDTO competitionDTO) {
         return competitionService.insertCompetition(competitionDTO);
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<Object> uploadImage(@RequestBody MultipartFile file) throws IOException {
+        return ResponseEntity.ok(Map.of("url", fileStorageService.saveFile(file)));
     }
 
     // Tạo mới problem cho competition

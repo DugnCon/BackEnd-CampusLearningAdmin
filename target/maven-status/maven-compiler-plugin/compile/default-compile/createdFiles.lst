@@ -1,5 +1,6 @@
 com\javaweb\builder\UserBuilder.class
 com\javaweb\repository\ICourseRepositoryEdit.class
+com\javaweb\entity\competitions\CompetitionParticipantEntity.class
 com\javaweb\entity\event\EventParticipantsEntity.class
 com\javaweb\api\admin\AdminAPI.class
 com\javaweb\utils\ObjectConfig.class
@@ -11,6 +12,8 @@ com\javaweb\entity\coding\CodingExercisesEntity.class
 com\javaweb\repository\ICodingExercisesRepository.class
 com\javaweb\repository\IEventPrizesRepository.class
 com\javaweb\model\dto\EventLanguagesDTO.class
+com\javaweb\entity\competitions\CompetitionSubmissionEntity.class
+com\javaweb\entity\competitions\CompetitionRegistrationEntity.class
 com\javaweb\entity\exams\ExamsEntity.class
 com\javaweb\model\dto\CourseDTO.class
 com\javaweb\converter\CourseConverter.class

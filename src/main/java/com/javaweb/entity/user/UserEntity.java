@@ -1,13 +1,18 @@
 package com.javaweb.entity.user;
 
-import java.time.LocalDateTime;
-import java.util.HashSet;
-
-import javax.persistence.*;
-import java.util.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.javaweb.entity.competitions.CompetitionParticipantEntity;
+import com.javaweb.entity.competitions.CompetitionRegistrationEntity;
+import com.javaweb.entity.competitions.CompetitionSubmissionEntity;
 import com.javaweb.entity.event.EventParticipantsEntity;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -45,6 +50,33 @@ public class UserEntity {
 	private String lockReason;
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<EventParticipantsEntity> eventParticipants = new HashSet<>();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<CompetitionSubmissionEntity> submission = new ArrayList<>();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<CompetitionParticipantEntity> participant = new ArrayList<>();
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonBackReference
+	private List<CompetitionRegistrationEntity> registration;
+
+	@JsonBackReference
+	public List<CompetitionRegistrationEntity> getRegistration() {
+		return registration;
+	}
+
+	public void setRegistration(List<CompetitionRegistrationEntity> registration) {
+		this.registration = registration;
+	}
+
+	@JsonBackReference
+	public List<CompetitionParticipantEntity> getParticipant() {
+		return participant;
+	}
+
+	public void setParticipant(List<CompetitionParticipantEntity> participant) {
+		this.participant = participant;
+	}
 
 	public Set<EventParticipantsEntity> getEventParticipants() {
 		return eventParticipants;
@@ -52,6 +84,15 @@ public class UserEntity {
 	public void setEventParticipants(Set<EventParticipantsEntity> eventParticipants) {
 		this.eventParticipants = eventParticipants;
 	}
+	@JsonBackReference
+	public List<CompetitionSubmissionEntity> getSubmission() {
+		return submission;
+	}
+
+	public void setSubmission(List<CompetitionSubmissionEntity> submission) {
+		this.submission = submission;
+	}
+
 	public Integer getLockDuration() {
 		return lockDuration;
 	}

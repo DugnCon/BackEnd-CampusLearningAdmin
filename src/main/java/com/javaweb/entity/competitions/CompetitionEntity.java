@@ -2,31 +2,17 @@ package com.javaweb.entity.competitions;
 
 //package com.javaweb.entity.competitions;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "competitions")
@@ -91,9 +77,33 @@ public class CompetitionEntity {
     @OneToMany(mappedBy="competition", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonBackReference
     private List<CompetitionProblemEntity> competitionProblem = new ArrayList<>();
+
+    @OneToMany(mappedBy="competition", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<CompetitionParticipantEntity> participant = new ArrayList<>();
+
+    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<CompetitionRegistrationEntity> registration;
     
     // ===== Getters & Setters =====
-    
+    @JsonBackReference
+    public List<CompetitionRegistrationEntity> getRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(List<CompetitionRegistrationEntity> registration) {
+        this.registration = registration;
+    }
+
+    @JsonBackReference
+    public List<CompetitionParticipantEntity> getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(List<CompetitionParticipantEntity> participant) {
+        this.participant = participant;
+    }
 
     public List<CompetitionProblemEntity> getCompetitionProblem() {
 		return competitionProblem;
