@@ -15,6 +15,9 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: dungcon2005
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      mysql_container:
+        condition: service_healthy
     networks:
       - app-net
     volumes:
