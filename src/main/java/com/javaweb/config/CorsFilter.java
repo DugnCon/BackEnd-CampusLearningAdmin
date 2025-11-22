@@ -10,19 +10,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE) 
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) 
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
+
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5005");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
+        String origin = request.getHeader("Origin");
+
+        if (origin != null && isAllowedOrigin(origin)) {
+            response.setHeader("Access-Control-Allow-Origin", origin);
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+        }
+
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization, X-Requested-With");
+        response.setHeader("Access-Control-Allow-Headers",
+                "Origin, Content-Type, Accept, Authorization, X-Requested-With");
         response.setHeader("Access-Control-Max-Age", "3600");
 
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
@@ -30,6 +37,16 @@ public class CorsFilter implements Filter {
             return;
         }
 
-        chain.doFilter(req, res);
+        chain.doFilter(request, response);
+    }
+
+    private boolean isAllowedOrigin(String origin) {
+        // Danh sách whitelist
+        return origin.equals("http://localhost:5004") ||
+                origin.startsWith("http://192.168.") ||
+                origin.equals("https://campuslearning.site") ||
+                origin.equals("http://campuslearning.site") ||
+                origin.equals("https://admin.campuslearning.site") ||
+                origin.equals("http://admin.campuslearning.site");
     }
 }
