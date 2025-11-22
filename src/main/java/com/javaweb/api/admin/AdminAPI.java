@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping
 public class AdminAPI {
 	@Autowired
 	private IAdminServiceLogin adminServiceLogin;

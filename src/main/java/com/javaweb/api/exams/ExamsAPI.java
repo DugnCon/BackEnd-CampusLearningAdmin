@@ -15,7 +15,7 @@ import com.javaweb.service.IExamsService;
 
 import java.util.List;
 @RestController
-@RequestMapping("/api")
+@RequestMapping
 public class ExamsAPI {
 	@Autowired
 	private IExamsService examsService;

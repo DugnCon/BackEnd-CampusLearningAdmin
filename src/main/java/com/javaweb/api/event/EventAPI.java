@@ -1,28 +1,16 @@
 package com.javaweb.api.event;
 
-import java.util.Map;
-
+import com.javaweb.model.dto.*;
+import com.javaweb.service.IEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.javaweb.model.dto.EventDTO;
-import com.javaweb.model.dto.EventLanguagesDTO;
-import com.javaweb.model.dto.EventPrizesDTO;
-import com.javaweb.model.dto.EventScheduleDTO;
-import com.javaweb.model.dto.EventTechnologiesDTO;
-import com.javaweb.service.IEventService;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping
 public class EventAPI {
 	@Autowired
 	private IEventService eventService;

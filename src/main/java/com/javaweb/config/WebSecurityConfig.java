@@ -95,17 +95,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .csrf().disable() // Tắt CSRF cho API
             .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Cho phép OPTIONS
-                .antMatchers("/auth/login", "/auth/register").permitAll() // Cho phép tất cả login/register
-                .antMatchers("/auth/**").hasAnyAuthority("ADMIN", "TEACHER") // Bảo vệ admin routes
-                .antMatchers("/**").permitAll() // Public routes
-                .anyRequest().authenticated() // Các request khác cần auth
-            .and()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers("/auth/login", "/auth/register").permitAll()
+                .antMatchers("/auth/**").hasAnyAuthority("ADMIN", "TEACHER")
+                .antMatchers("/**").permitAll()
+                .anyRequest().authenticated();
+            /*.and()
             .logout()
-                .logoutUrl("/auth/logout") // API logout
-                .deleteCookies("JSESSIONID") // Xóa đi các cookie khi rời khỏi admin
+                .logoutUrl("/auth/logout")
+                .deleteCookies("JSESSIONID")
                 .logoutSuccessHandler((request, response, authentication) -> {
-                    response.setStatus(200); // Trả status 200 cho API
-                });
+                    response.setStatus(200);
+                });*/
     }
 }

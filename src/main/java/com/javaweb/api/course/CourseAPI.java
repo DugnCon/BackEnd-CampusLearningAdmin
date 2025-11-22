@@ -1,13 +1,5 @@
 package com.javaweb.api.course;
 
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.javaweb.builder.CourseBuilder;
 import com.javaweb.builder.CourseModuleBuilder;
 import com.javaweb.converter.CourseConverter;
@@ -20,9 +12,16 @@ import com.javaweb.service.ICourseLessonService;
 import com.javaweb.service.ICourseModuleServiceEdit;
 import com.javaweb.service.ICourseService;
 import com.javaweb.service.ICourseServiceEdit;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping
 public class CourseAPI {
 
     @Autowired

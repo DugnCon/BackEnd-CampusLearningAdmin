@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping
 public class CompetitionAPI {
     @Autowired
     private FileStorageService fileStorageService;
