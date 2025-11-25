@@ -1,33 +1,17 @@
 package com.javaweb.entity.Course;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.javaweb.entity.exams.ExamsEntity;
+import com.javaweb.entity.payment.PaymentTransactionEntity;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedStoredProcedureQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.ParameterMode;
-import javax.persistence.StoredProcedureParameter;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-//import com.javaweb.entity.CourseModule.CourseModuleEntity;
-import com.javaweb.entity.exams.ExamsEntity;
 /*@NamedStoredProcedureQuery(
 		name="CourseEntity.getAllCourse",
 		procedureName="all_course",
@@ -89,8 +73,29 @@ public class CourseEntity {
 	@OneToMany(mappedBy = "courseExams", cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
 	@JsonBackReference
 	private List<ExamsEntity> exams = new ArrayList<>();
-	
-	
+	@OneToMany(mappedBy="courseEnrollment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonBackReference
+	private List<CourseEnrollmentEntity> courseEnrollment = new ArrayList<>();
+	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonBackReference
+	private List<PaymentTransactionEntity> paymentTransaction = new ArrayList<>();
+
+	public List<PaymentTransactionEntity> getPaymentTransaction() {
+		return paymentTransaction;
+	}
+
+	public void setPaymentTransaction(List<PaymentTransactionEntity> paymentTransaction) {
+		this.paymentTransaction = paymentTransaction;
+	}
+
+	public List<CourseEnrollmentEntity> getCourseEnrollment() {
+		return courseEnrollment;
+	}
+
+	public void setCourseEnrollment(List<CourseEnrollmentEntity> courseEnrollment) {
+		this.courseEnrollment = courseEnrollment;
+	}
+
 	public boolean isPublished() {
 		return isPublished;
 	}

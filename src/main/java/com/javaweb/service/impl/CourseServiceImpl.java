@@ -1,21 +1,5 @@
 package com.javaweb.service.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.transaction.Transactional;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.javaweb.entity.Course.CourseEntity;
 import com.javaweb.entity.Course.CourseModuleEntity;
 import com.javaweb.model.dto.CourseDTO;
@@ -25,7 +9,18 @@ import com.javaweb.repository.ICourseRepository;
 import com.javaweb.repository.impl.CourseRepositoryCustom.CourseRepositoryCustom;
 import com.javaweb.service.FileStorageService;
 import com.javaweb.service.ICourseService;
-import com.javaweb.utils.NullAwareBeanUtils;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.transaction.Transactional;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class CourseServiceImpl implements ICourseService {
@@ -132,6 +127,22 @@ public class CourseServiceImpl implements ICourseService {
                     .body(Map.of("status", "error", "message", "Failed to save file"));
         }
 	}
+
+    public boolean updateCourseVideo(Long courseId, String videoUrl) {
+        try {
+            Optional<CourseEntity> courseOpt = courseRepository.findById(courseId);
+            if (courseOpt.isPresent()) {
+                CourseEntity course = courseOpt.get();
+                course.setVideoUrl(videoUrl);
+                courseRepository.save(course);
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     
     @Override

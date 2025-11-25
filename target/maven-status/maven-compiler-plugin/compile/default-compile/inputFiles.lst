@@ -10,6 +10,7 @@ C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\model\dto\ExamsDT
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\config\WebMvcConfig.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\IAdminRepositoryLogin.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\service\impl\ExamsServiceImpl.java
+C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\entity\competitions\CompetitionRegistrationEntity.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\IEventTechnologiesRepository.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\IExamAnswerTemplatesRepository.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\converter\TestCaseConverter.java
@@ -33,6 +34,7 @@ C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\ICompe
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\builder\CourseBuilder.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\model\dto\TypeOfExamsDTO.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\service\impl\EventServiceImpl.java
+C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\entity\competitions\CompetitionParticipantEntity.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\converter\CourseModuleConverter.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\ICourseRepositoryEdit.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\entity\competitions\CompetitionEntity.java
@@ -78,16 +80,21 @@ C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\service\impl\Comp
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\converter\CourseConverter.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\service\IEventService.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\entity\event\EventScheduleEntity.java
+C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\service\VideoChunkService.java
+C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\entity\Course\CourseEnrollmentEntity.java
+C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\entity\Course\LessonProgressEntity.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\service\ICompetitionService.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\model\dto\AdminDTO.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\service\ICourseServiceEdit.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\model\dto\CourseModuleDTO.java
+C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\entity\competitions\CompetitionSubmissionEntity.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\IEventProgrammingLanguagesRepository.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\entity\event\EventTechnologiesEntity.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\ICourseModuleRepository.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\impl\RepositoryImpl\CourseEditRepositoryImpl.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\service\ICourseLessonService.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\IEventRepository.java
+C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\entity\payment\PaymentHistoryEntity.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\entity\user\UserEntity.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\service\impl\CourseServiceImpl.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\config\CorsFilter.java
@@ -107,4 +114,5 @@ C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\utils\MapUtils.ja
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\service\impl\CourseModuleServiceEdit.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\ICourseLessonsRepository.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\impl\RepositoryImpl\EventRepositoryImpl.java
+C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\entity\payment\PaymentTransactionEntity.java
 C:\Esclipe_Web\campuslearning-addmin\src\main\java\com\javaweb\repository\IEventScheduleRepository.java

@@ -42,7 +42,7 @@ public class CorsFilter implements Filter {
 
     private boolean isAllowedOrigin(String origin) {
         // Danh sách whitelist
-        return origin.equals("http://localhost:5004") ||
+        return origin.equals("http://localhost:5004") || origin.equals("http://localhost:5005") ||
                 origin.startsWith("http://192.168.") ||
                 origin.equals("https://campuslearning.site") ||
                 origin.equals("http://campuslearning.site") ||

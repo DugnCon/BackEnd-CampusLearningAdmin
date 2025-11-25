@@ -12,6 +12,7 @@ public interface ICourseService {
 	ResponseEntity<Object> createCourse(CourseDTO courseDTO);
 	ResponseEntity<Object> uploadCourseImage(Long courseId, MultipartFile image);
     ResponseEntity<Object> uploadCourseVideo(Long courseId, MultipartFile video);
+    boolean updateCourseVideo(Long courseId, String videoUrl);
     ResponseEntity<Object> createModule(Long courseId, CourseModuleDTO moduleDTO);
     ResponseEntity<Object> uploadModuleVideoUrl(Long moduleId, String videoUrl);
     ResponseEntity<Object> uploadModuleImage(Long moduleId, MultipartFile image);

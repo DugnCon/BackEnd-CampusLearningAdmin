@@ -69,10 +69,12 @@ com\javaweb\repository\ICourseRepository.class
 com\javaweb\service\FileStorageService.class
 com\javaweb\service\IEventService.class
 com\javaweb\repository\ICompetitionRepository.class
+com\javaweb\entity\payment\PaymentTransactionEntity.class
 com\javaweb\repository\ICourseModuleRepository.class
 com\javaweb\service\impl\CourseModuleServiceEdit.class
 com\javaweb\entity\competitions\CompetitionProblemEntity.class
 com\javaweb\config\WebSecurityConfig.class
+com\javaweb\entity\Course\CourseEnrollmentEntity.class
 com\javaweb\repository\IEventTechnologiesRepository.class
 com\javaweb\model\dto\EventTechnologiesDTO.class
 com\javaweb\model\dto\EssayDataDTO.class
@@ -88,6 +90,7 @@ com\javaweb\model\dto\EventDTO.class
 com\javaweb\repository\impl\RepositoryImpl\CourseEditRepositoryImpl.class
 com\javaweb\builder\CourseBuilder.class
 com\javaweb\service\ICourseLessonService.class
+com\javaweb\entity\payment\PaymentHistoryEntity.class
 com\javaweb\api\user\UserAPI.class
 com\javaweb\service\IUserService.class
 com\javaweb\converter\TestCaseConverter.class
@@ -100,6 +103,7 @@ com\javaweb\model\dto\TestCasesDTO.class
 com\javaweb\model\dto\CodingExerciseDTO.class
 com\javaweb\model\dto\EventPrizesDTO.class
 com\javaweb\service\ICompetitionService.class
+com\javaweb\entity\Course\LessonProgressEntity.class
 com\javaweb\repository\impl\EventRepositoryCustom\EventRepositoryCustom.class
 com\javaweb\builder\CourseBuilder$Builder.class
 com\javaweb\config\CorsFilter.class
@@ -112,5 +116,6 @@ com\javaweb\model\dto\CourseModuleDTO.class
 com\javaweb\repository\impl\RepositoryImpl\CourseLessonRepositoryImpl.class
 com\javaweb\repository\impl\RepositoryImpl\CourseRepositoryImpl.class
 com\javaweb\repository\IUserRepository.class
+com\javaweb\service\VideoChunkService.class
 com\javaweb\model\dto\CourseLessonsDTO.class
 com\javaweb\service\impl\CompetitionServiceImpl.class

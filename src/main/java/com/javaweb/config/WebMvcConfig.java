@@ -12,6 +12,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations(
                         "file:/app/uploads/"
+                        //"file:C:/Esclipe_Web/campuslearning-addmin/uploads/"
                 );
     }
 }

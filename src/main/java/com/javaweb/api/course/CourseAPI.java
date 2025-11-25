@@ -8,10 +8,7 @@ import com.javaweb.entity.Course.CourseLessonsEntity;
 import com.javaweb.model.dto.CourseDTO;
 import com.javaweb.model.dto.CourseLessonsDTO;
 import com.javaweb.model.dto.CourseModuleDTO;
-import com.javaweb.service.ICourseLessonService;
-import com.javaweb.service.ICourseModuleServiceEdit;
-import com.javaweb.service.ICourseService;
-import com.javaweb.service.ICourseServiceEdit;
+import com.javaweb.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
@@ -38,6 +35,10 @@ public class CourseAPI {
     private CourseModuleConverter courseModuleConverter;
     @Autowired
     private ICourseLessonService courseLessonService;
+    @Autowired
+    private VideoChunkService videoChunkService;
+    @Autowired
+    private FileStorageService fileStorageService;
 
     // tạo khóa học
     @PostMapping("/courses")
@@ -104,13 +105,13 @@ public class CourseAPI {
     }
 
     // upload video khóa học
-    @PostMapping("/courses/{courseId}/video")
+    /*@PostMapping("/courses/{courseId}/video")
     @Async
     public ResponseEntity<Object> uploadCourseVideo(
             @PathVariable Long courseId,
             @RequestParam("video") MultipartFile video) {
         return courseService.uploadCourseVideo(courseId, video);
-    }
+    }*/
 
     // tạo module
     @PostMapping("/courses/{courseId}/modules")
@@ -183,5 +184,55 @@ public class CourseAPI {
     @PostMapping("/courses/{courseId}/publish")
     public ResponseEntity<Object> updatePulished(@PathVariable Long courseId) {
     	return courseService.updatePublished(courseId);
+    }
+
+    @PostMapping("/courses/{courseId}/video-chunk")
+    public ResponseEntity<?> uploadVideoChunk(
+            @PathVariable Long courseId,
+            @RequestParam("video") MultipartFile chunk,
+            @RequestParam("chunkIndex") Integer chunkIndex,
+            @RequestParam("totalChunks") Integer totalChunks,
+            @RequestParam("fileName") String fileName) {
+
+        Map<String, Object> result = videoChunkService.processVideoChunk(
+                courseId, chunk, chunkIndex, totalChunks, fileName
+        );
+
+        boolean success = (boolean) result.get("success");
+        return success ?
+                ResponseEntity.ok(result) :
+                ResponseEntity.badRequest().body(result);
+    }
+
+    /**
+     * API finalize video upload
+     */
+    /*@PostMapping("/courses/{courseId}/video-finalize")
+    public ResponseEntity<?> finalizeVideoUpload(
+            @PathVariable Long courseId,
+            @RequestParam("fileName") String fileName,
+            @RequestParam("totalChunks") Integer totalChunks) {
+
+        Map<String, Object> result = videoChunkService.finalizeVideoUpload(
+                courseId, fileName, totalChunks
+        );
+
+        boolean success = (boolean) result.get("success");
+        return success ?
+                ResponseEntity.ok(result) :
+                ResponseEntity.badRequest().body(result);
+    }*/
+
+    /**
+     * API cleanup temp files
+     */
+    @PostMapping("/courses/cleanup-temp-files")
+    public ResponseEntity<?> cleanupTempFiles() {
+        Map<String, Object> result = videoChunkService.cleanupOldTempFiles();
+
+        boolean success = (boolean) result.get("success");
+        return success ?
+                ResponseEntity.ok(result) :
+                ResponseEntity.badRequest().body(result);
     }
 }

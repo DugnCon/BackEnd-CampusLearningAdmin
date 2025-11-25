@@ -22,6 +22,7 @@ public class FileStorageService {
 
     // Đường dẫn uploads dùng chung trên VPS
     private final String uploadDir = "/app/uploads";
+    //private final String uploadDir = "file:C:/Esclipe_Web/campuslearning-addmin/uploads/";
 
     public String saveFile(MultipartFile file) throws IOException {
         if (file == null || file.isEmpty()) return null;

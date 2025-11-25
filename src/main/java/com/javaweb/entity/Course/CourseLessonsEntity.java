@@ -1,29 +1,17 @@
 package com.javaweb.entity.Course;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.javaweb.entity.coding.CodingExercisesEntity;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.javaweb.entity.coding.CodingExercisesEntity;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 @Entity
 @Table(name="courselessons")
 @DynamicUpdate
@@ -61,7 +49,18 @@ public class CourseLessonsEntity {
 	@OneToMany(mappedBy="lessons", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonBackReference
 	private List<CodingExercisesEntity> coding = new ArrayList<>();
-	
+	@OneToMany(mappedBy="lessons", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonManagedReference("lesson-progress")
+	private List<LessonProgressEntity> lessonProgress = new ArrayList<>();
+
+	public List<LessonProgressEntity> getLessonProgress() {
+		return lessonProgress;
+	}
+
+	public void setLessonProgress(List<LessonProgressEntity> lessonProgress) {
+		this.lessonProgress = lessonProgress;
+	}
+
 	@JsonBackReference
 	public List<CodingExercisesEntity> getCoding() {
 		return coding;
