@@ -1,18 +1,15 @@
 package com.javaweb.repository.impl.RepositoryImpl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.javaweb.repository.impl.CourseRepositoryCustom.CourseRepositoryCustom;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
-import org.springframework.stereotype.Repository;
-
-import com.javaweb.entity.Course.CourseEntity;
-import com.javaweb.repository.impl.CourseRepositoryCustom.CourseRepositoryCustom;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Repository
@@ -47,7 +44,7 @@ public class CourseRepositoryImpl implements CourseRepositoryCustom {
 	@Override
 	public Map<String, Object> getCoursePreview(Long courseId) {
 	    String str = "SELECT CourseID, Title, Description, Level, Category, Language, Duration, " +
-	                 "Capacity, Price, DiscountPrice, Requirements, Objectives, CreatedAt, " +
+	                 "Capacity, Price, DiscountPrice, Requirements, Objectives, " +
 	                 "UpdatedAt, Syllabus, ImageUrl, VideoUrl, IsPublished " +
 	                 "FROM courses WHERE CourseID = :courseId";
 	                 
@@ -66,7 +63,7 @@ public class CourseRepositoryImpl implements CourseRepositoryCustom {
 	@Override
 	public List<Map<String, Object>> getCourseModule(Long courseId) {
 		String sql = "select ModuleID, Title, Description, VideoUrl,"
-				+ " ImageUrl, OrderIndex, Duration, CreatedAt, UpdatedAt"
+				+ " ImageUrl, OrderIndex, Duration, UpdatedAt"
 				+ " from coursemodules where CourseID = :courseId";
 		
 		Query qr = entityManager.createNativeQuery(sql)
@@ -80,7 +77,7 @@ public class CourseRepositoryImpl implements CourseRepositoryCustom {
 	@Override
 	public List<Map<String, Object>> getCourseModulePreview(Long moduleId) {
 		String sql = "select ModuleID, Title, Description, VideoUrl,"
-				+ " ImageUrl, OrderIndex, Duration, CreatedAt, UpdatedAt"
+				+ " ImageUrl, OrderIndex, Duration, UpdatedAt"
 				+ " from coursemodules where ModuleID = :moduleId";
 		
 		Query qr = entityManager.createNativeQuery(sql)
