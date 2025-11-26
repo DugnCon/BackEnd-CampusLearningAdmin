@@ -63,7 +63,7 @@ public class CourseRepositoryImpl implements CourseRepositoryCustom {
 	@Override
 	public List<Map<String, Object>> getCourseModule(Long courseId) {
 		String sql = "select ModuleID, Title, Description, VideoUrl,"
-				+ " ImageUrl, OrderIndex, Duration, UpdatedAt"
+				+ " ImageUrl, OrderIndex, Duration"
 				+ " from coursemodules where CourseID = :courseId";
 		
 		Query qr = entityManager.createNativeQuery(sql)
