@@ -97,8 +97,14 @@ public class CourseAPI {
 
     // upload ảnh khóa học
     @PostMapping("/courses/{courseId}/image")
-    @Async
     public ResponseEntity<Object> uploadCourseImage(
+            @PathVariable Long courseId,
+            @RequestParam("image") MultipartFile image) {
+        return courseService.uploadCourseImage(courseId, image);
+    }
+
+    @PutMapping("/courses/{courseId}/image")
+    public ResponseEntity<Object> updateCourseImage(
             @PathVariable Long courseId,
             @RequestParam("image") MultipartFile image) {
         return courseService.uploadCourseImage(courseId, image);
@@ -123,7 +129,6 @@ public class CourseAPI {
 
     //upload video cho module
     @PostMapping("/modules/{moduleId}/video-url")
-    @Async
     public ResponseEntity<Object> uploadModuleVideoUrl(
             @PathVariable Long moduleId,
             @RequestBody CourseModuleDTO moduleDTO) {
