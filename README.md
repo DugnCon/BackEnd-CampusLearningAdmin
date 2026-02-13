@@ -1,57 +1,54 @@
-# BackEnd-CampusLearningAdmin
-🎓 Campus Learning Admin – Backend System
+cat > README.md << 'EOF'
+# Campus Learning Admin - Backend System
 
-A backend system for managing campus learning activities including courses, users, and administration features.
-Built with Java and Spring Boot following a clean layered architecture.
+Backend system for managing campus learning activities such as courses, users, and administrative operations.
 
-🚀 Tech Stack
+Built with Java and Spring Boot using a clean layered architecture.
 
-☕ Java 17+
+---
 
-🌱 Spring Boot
+## Tech Stack
 
-🗄 Spring Data JPA
+- Java 17+
+- Spring Boot
+- Spring Data JPA
+- MySQL
+- Docker & Docker Compose
 
-🐬 MySQL
+---
 
-🐳 Docker & Docker Compose
+## Project Overview
 
-🔐 (Optional) Spring Security / JWT
+Campus Learning Admin is a RESTful API designed to support a campus learning management system.
 
-📌 Project Overview
+Main features:
 
-Campus Learning Admin is a RESTful backend API designed to support a campus learning management system.
-
-The system allows administrators to:
-
-Manage users (students, teachers, admins)
-
-Manage courses
-
-Handle learning-related data
-
-Control access and business logic
+- Manage users (students, teachers, admins)
+- Manage courses
+- Handle learning-related data
+- Apply business logic through service layer
 
 This project focuses on backend architecture, database design, and REST API development.
 
-🏗 Architecture
+---
+
+## Architecture
 
 The project follows a layered architecture:
 
-Controller → Service → Repository → Database
+Controller -> Service -> Repository -> Database
 
-
-Controller: Handle HTTP requests
-
-Service: Business logic layer
-
-Repository: Data access layer (JPA)
-
-Entity: Database mapping objects
+- Controller: Handle HTTP requests
+- Service: Business logic layer
+- Repository: Data access layer using JPA
+- Entity: Database mapping objects
 
 This structure improves maintainability and scalability.
 
-📂 Project Structure
+---
+
+## Project Structure
+
 src/
  └── main/
      ├── java/
@@ -65,82 +62,75 @@ src/
          ├── application.yml
          └── ...
 
-⚙️ Setup & Run
-🔹 Option 1: Run with Docker
+---
+
+## Setup and Run
+
+### Option 1: Run with Docker
+
 docker-compose up --build
 
+---
 
-The application will start along with the database.
+### Option 2: Run Locally
 
-🔹 Option 2: Run Locally
-
-Clone repository
+1. Clone repository
 
 git clone https://github.com/DugnCon/BackEnd-CampusLearningAdmin.git
 cd BackEnd-CampusLearningAdmin
 
+2. Configure database in application.yml
 
-Configure database in application.yml
-
-Run application
+3. Run application
 
 mvn spring-boot:run
-
 
 Server runs at:
 
 http://localhost:8080
 
-📡 API Example
+---
+
+## API Example
 
 Example request:
 
 GET /api/courses
 
-
 Example response:
 
-[
-  {
-    "id": 1,
-    "name": "Backend Development",
-    "description": "Spring Boot course"
-  }
-]
+{
+  "id": 1,
+  "name": "Backend Development",
+  "description": "Spring Boot course"
+}
 
-🐳 Docker Support
+---
 
-This project includes:
+## Docker Support
 
-Dockerfile
+The project includes:
 
-docker-compose.yml
+- Dockerfile
+- docker-compose.yml
 
-Allows containerized deployment for easier environment setup.
+This allows containerized deployment and easier environment setup.
 
-🔐 Future Improvements
+---
 
-Add JWT Authentication
+## Future Improvements
 
-Role-based Authorization (Admin / Teacher / Student)
+- JWT Authentication
+- Role-based Authorization
+- Swagger API Documentation
+- Unit and Integration Testing
+- CI/CD pipeline
 
-Swagger API Documentation
+---
 
-Unit & Integration Testing
+## Author
 
-CI/CD pipeline
+DugnCon
+https://github.com/DugnCon
 
-🎯 Purpose
-
-This project was developed for:
-
-Practicing backend development
-
-Learning system architecture design
-
-Demonstrating Java Spring Boot skills
-
-👨‍💻 Author
-
-Developed by DugnCon
-GitHub: https://github.com/DugnCon
+EOF
