@@ -1,4 +1,3 @@
-cat > README.md << 'EOF'
 # Campus Learning Admin - Backend System
 
 Backend system for managing campus learning activities such as courses, users, and administrative operations.
