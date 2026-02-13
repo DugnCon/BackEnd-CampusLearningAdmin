@@ -1,135 +1,150 @@
-# Campus Learning Admin - Backend System
+# 🎓 Campus Learning Admin -- Backend System
 
-Backend system for managing campus learning activities such as courses, users, and administrative operations.
+A backend system for managing campus learning activities including
+courses, users, and administrative operations.
 
-Built with Java and Spring Boot using a clean layered architecture.
+Built with **Java** and **Spring Boot** following a clean layered
+architecture.
 
----
+------------------------------------------------------------------------
 
-## Tech Stack
+## 🚀 Tech Stack
 
-- Java 17+
-- Spring Boot
-- Spring Data JPA
-- MySQL
-- Docker & Docker Compose
+-   ☕ Java 17+
+-   🌱 Spring Boot
+-   🗄 Spring Data JPA
+-   🐬 MySQL
+-   🐳 Docker & Docker Compose
+-   🔐 Spring Security (Optional)
 
----
+------------------------------------------------------------------------
 
-## Project Overview
+## 📌 Project Overview
 
-Campus Learning Admin is a RESTful API designed to support a campus learning management system.
+Campus Learning Admin is a RESTful API designed to support a campus
+learning management system.
 
-Main features:
+### Main Features:
 
-- Manage users (students, teachers, admins)
-- Manage courses
-- Handle learning-related data
-- Apply business logic through service layer
+-   👨‍🎓 Manage students
+-   👩‍🏫 Manage teachers
+-   🛠 Manage administrators
+-   📚 Manage courses
+-   🗂 Handle learning-related data
+-   🧠 Apply business logic via service layer
 
-This project focuses on backend architecture, database design, and REST API development.
+This project focuses on backend architecture, database design, and REST
+API development.
 
----
+------------------------------------------------------------------------
 
-## Architecture
+## 🏗 Architecture
 
 The project follows a layered architecture:
 
-Controller -> Service -> Repository -> Database
+Controller → Service → Repository → Database
 
-- Controller: Handle HTTP requests
-- Service: Business logic layer
-- Repository: Data access layer using JPA
-- Entity: Database mapping objects
+### Layer Responsibilities:
 
-This structure improves maintainability and scalability.
+-   🎯 Controller: Handle HTTP requests
+-   ⚙️ Service: Business logic processing
+-   💾 Repository: Data access layer (JPA)
+-   🧱 Entity: Database mapping objects
 
----
+This structure improves maintainability, scalability, and code
+readability.
 
-## Project Structure
+------------------------------------------------------------------------
 
-src/
- └── main/
-     ├── java/
-     │   └── com/...
-     │       ├── controller/
-     │       ├── service/
-     │       ├── repository/
-     │       ├── entity/
-     │       └── config/
-     └── resources/
-         ├── application.yml
-         └── ...
+## 📂 Project Structure
 
----
+    src/
+     └── main/
+         ├── java/
+         │   └── com/...
+         │       ├── controller/
+         │       ├── service/
+         │       ├── repository/
+         │       ├── entity/
+         │       └── config/
+         └── resources/
+             ├── application.yml
+             └── ...
 
-## Setup and Run
+------------------------------------------------------------------------
 
-### Option 1: Run with Docker
+## ⚙️ Setup & Run
 
+### 🐳 Run with Docker
+
+``` bash
 docker-compose up --build
+```
 
----
+------------------------------------------------------------------------
 
-### Option 2: Run Locally
+### 💻 Run Locally
 
-1. Clone repository
+1.  Clone repository
 
+``` bash
 git clone https://github.com/DugnCon/BackEnd-CampusLearningAdmin.git
 cd BackEnd-CampusLearningAdmin
+```
 
-2. Configure database in application.yml
+2.  Configure database in `application.yml`
 
-3. Run application
+3.  Run application
 
+``` bash
 mvn spring-boot:run
+```
 
 Server runs at:
 
-http://localhost:8080
+    http://localhost:8080
 
----
+------------------------------------------------------------------------
 
-## API Example
+## 📡 API Example
 
-Example request:
+### Request
 
-GET /api/courses
+    GET /api/courses
 
-Example response:
+### Response
 
+``` json
 {
   "id": 1,
   "name": "Backend Development",
   "description": "Spring Boot course"
 }
+```
 
----
+------------------------------------------------------------------------
 
-## Docker Support
+## 🛡 Future Improvements
 
-The project includes:
+-   🔐 JWT Authentication
+-   🧩 Role-based Authorization
+-   📄 Swagger API Documentation
+-   🧪 Unit & Integration Testing
+-   🚀 CI/CD Pipeline
 
-- Dockerfile
-- docker-compose.yml
+------------------------------------------------------------------------
 
-This allows containerized deployment and easier environment setup.
+## 🎯 Purpose
 
----
+This project was developed for:
 
-## Future Improvements
+-   Practicing backend development
+-   Learning system architecture design
+-   Demonstrating Java Spring Boot skills
 
-- JWT Authentication
-- Role-based Authorization
-- Swagger API Documentation
-- Unit and Integration Testing
-- CI/CD pipeline
+------------------------------------------------------------------------
 
----
+## 👨‍💻 Author
 
-## Author
-
-DugnCon
-https://github.com/DugnCon
-
-EOF
+**DugnCon**\
+GitHub: https://github.com/DugnCon
